@@ -49,6 +49,46 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ShoppingCenter",
+  name: "The Gables Shopping Centre",
+  description:
+    "Premier shopping destination in Ezulwini, Eswatini with 96+ tenants, free secure parking, cinema, banking and dining.",
+  url: "https://thegables.digital",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "MR103, Shebas Rocks",
+    addressLocality: "Ezulwini",
+    addressCountry: "SZ",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: -26.4394,
+    longitude: 31.1874,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "17:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "09:00",
+      closes: "14:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Sunday",
+      opens: "09:00",
+      closes: "13:00",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -56,6 +96,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn(lora.variable, inter.variable)}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen bg-sand font-sans antialiased">
         <UtilityBar />
         <Navbar />
