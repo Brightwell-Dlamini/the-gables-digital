@@ -6,6 +6,8 @@ import { Menu, X, Heart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { A11yToggle } from "@/components/A11yToggle";
+import { useFavourites } from "@/store/favourites";
 
 const navLinks = [
   { href: "/directory", label: "Directory" },
@@ -17,6 +19,7 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const favCount = useFavourites((s) => s.ids.length);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -28,9 +31,7 @@ export function Navbar() {
     <header
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
-        scrolled
-          ? "glass shadow-glass-sm py-2"
-          : "bg-transparent py-4"
+        scrolled ? "glass shadow-glass-sm py-2" : "bg-transparent py-4"
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -39,45 +40,36 @@ export function Navbar() {
             G
           </div>
           <div className="flex flex-col leading-none">
-            <span className="font-serif text-lg font-medium tracking-tight text-forest">
-              The Gables
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.2em] text-ink-muted">
-              Ezulwini
-            </span>
+            <span className="font-serif text-lg font-medium tracking-tight text-forest">The Gables</span>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-ink-muted">Ezulwini</span>
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
           {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-ink/80 transition-colors hover:text-forest"
-            >
+            <Link key={link.href} href={link.href} className="text-sm font-medium text-ink/80 transition-colors hover:text-forest">
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            className="hidden rounded-full p-2 text-forest/70 transition-colors hover:bg-forest/5 hover:text-forest sm:inline-flex"
-            aria-label="Saved favourites"
+        <div className="flex items-center gap-2 sm:gap-3">
+          <A11yToggle />
+          <Link
+            href="/directory"
+            className="relative hidden rounded-full p-2 text-forest/70 transition-colors hover:bg-forest/5 hover:text-forest sm:inline-flex"
+            aria-label={`Favourites${favCount ? `, ${favCount} saved` : ""}`}
           >
             <Heart className="h-5 w-5" />
-          </button>
-
-          <Button
-            asChild
-            variant="terracotta"
-            size="sm"
-            className="hidden sm:inline-flex"
-          >
+            {favCount > 0 && (
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-terracotta text-[10px] font-bold text-white">
+                {favCount > 9 ? "9+" : favCount}
+              </span>
+            )}
+          </Link>
+          <Button asChild variant="terracotta" size="sm" className="hidden sm:inline-flex">
             <Link href="/leasing">Enquire to Lease</Link>
           </Button>
-
           <button
             type="button"
             className="inline-flex items-center justify-center rounded-md p-2 text-forest md:hidden"
@@ -99,22 +91,15 @@ export function Navbar() {
             transition={{ duration: 0.25 }}
             className="border-t border-forest/10 bg-sand/95 backdrop-blur-xl md:hidden"
           >
-            <nav className="flex flex-col gap-1 px-4 py-4">
+            <nav className="flex flex-col gap-1 px-4 py-4" aria-label="Mobile">
               {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-md px-3 py-2.5 text-base font-medium text-forest hover:bg-forest/5"
-                >
+                <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="rounded-md px-3 py-2.5 text-base font-medium text-forest hover:bg-forest/5">
                   {link.label}
                 </Link>
               ))}
               <div className="mt-3 border-t border-forest/10 pt-3">
                 <Button asChild variant="terracotta" className="w-full">
-                  <Link href="/leasing" onClick={() => setMobileOpen(false)}>
-                    Enquire to Lease
-                  </Link>
+                  <Link href="/leasing" onClick={() => setMobileOpen(false)}>Enquire to Lease</Link>
                 </Button>
               </div>
             </nav>
