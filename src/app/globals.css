@@ -23,7 +23,6 @@
     --ring: 152 50% 12%;
     --radius: 0.625rem;
   }
-
   .dark {
     --background: 152 40% 6%;
     --foreground: 40 20% 95%;
@@ -46,52 +45,54 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-serif tracking-tight;
-  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  h1, h2, h3, h4, h5, h6 { @apply font-serif tracking-tight; }
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 @layer utilities {
-  .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-glass;
-  }
-  .glass-dark {
-    @apply bg-forest/80 backdrop-blur-xl border border-white/10 shadow-glass;
-  }
-  .text-balance {
-    text-wrap: balance;
-  }
+  .glass { @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-glass; }
+  .glass-dark { @apply bg-forest/80 backdrop-blur-xl border border-white/10 shadow-glass; }
+  .text-balance { text-wrap: balance; }
 }
 
 :focus-visible {
   @apply outline-none ring-2 ring-terracotta ring-offset-2 ring-offset-background;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { @apply bg-sand; }
+::-webkit-scrollbar-thumb { @apply bg-forest/30 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-forest/50; }
+
+/* High contrast mode */
+html.high-contrast {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 0 0% 92%;
+  --muted-foreground: 0 0% 20%;
+  --accent: 0 0% 0%;
+  --accent-foreground: 0 0% 100%;
+  --border: 0 0% 0%;
+  --ring: 0 0% 0%;
 }
-::-webkit-scrollbar-track {
-  @apply bg-sand;
-}
-::-webkit-scrollbar-thumb {
-  @apply bg-forest/30 rounded-full;
-}
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-forest/50;
-}
+html.high-contrast body { background: #fff !important; color: #000 !important; }
+html.high-contrast .bg-forest,
+html.high-contrast .bg-forest-600,
+html.high-contrast .bg-forest-800 { background-color: #000 !important; }
+html.high-contrast .text-forest,
+html.high-contrast .text-ink-muted { color: #000 !important; }
+html.high-contrast .bg-sand { background-color: #fff !important; }
+html.high-contrast :focus-visible { outline: 3px solid #000 !important; outline-offset: 2px; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+.leaflet-container { background: #F3EFE6; font-family: inherit; }
+.leaflet-popup-content-wrapper { border-radius: 0.75rem; box-shadow: 0 8px 32px rgba(15, 46, 31, 0.12); }
