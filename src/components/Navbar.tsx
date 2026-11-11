@@ -6,7 +6,7 @@ import { Menu, X, Heart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { A11yToggle } from "@/components/A11yToggle";
+import { ThemeToggles } from "@/components/ThemeToggles";
 import { useFavourites } from "@/store/favourites";
 
 const navLinks = [
@@ -47,17 +47,17 @@ export function Navbar() {
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-ink/80 transition-colors hover:text-forest">
+            <Link key={link.href} href={link.href} className="text-sm font-medium text-ink/80 transition-colors hover:text-forest dark:text-sand/80 dark:hover:text-sand">
               {link.label}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <A11yToggle />
+          <ThemeToggles />
           <Link
             href="/directory"
-            className="relative hidden rounded-full p-2 text-forest/70 transition-colors hover:bg-forest/5 hover:text-forest sm:inline-flex"
+            className="relative hidden rounded-full p-2 text-forest/70 transition-colors hover:bg-forest/5 hover:text-forest sm:inline-flex dark:text-sand/80 dark:hover:bg-white/10"
             aria-label={`Favourites${favCount ? `, ${favCount} saved` : ""}`}
           >
             <Heart className="h-5 w-5" />
@@ -72,7 +72,7 @@ export function Navbar() {
           </Button>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-md p-2 text-forest md:hidden"
+            className="inline-flex items-center justify-center rounded-md p-2 text-forest md:hidden dark:text-sand"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
@@ -89,15 +89,15 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="border-t border-forest/10 bg-sand/95 backdrop-blur-xl md:hidden"
+            className="border-t border-forest/10 bg-sand/95 backdrop-blur-xl md:hidden dark:bg-forest-900/95 dark:border-white/10"
           >
             <nav className="flex flex-col gap-1 px-4 py-4" aria-label="Mobile">
               {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="rounded-md px-3 py-2.5 text-base font-medium text-forest hover:bg-forest/5">
+                <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)} className="rounded-md px-3 py-2.5 text-base font-medium text-forest hover:bg-forest/5 dark:text-sand dark:hover:bg-white/10">
                   {link.label}
                 </Link>
               ))}
-              <div className="mt-3 border-t border-forest/10 pt-3">
+              <div className="mt-3 border-t border-forest/10 pt-3 dark:border-white/10">
                 <Button asChild variant="terracotta" className="w-full">
                   <Link href="/leasing" onClick={() => setMobileOpen(false)}>Enquire to Lease</Link>
                 </Button>
