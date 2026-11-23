@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Plus, Pencil, Trash2, Search } from "lucide-react";
-import { useAdmin } from "@/store/admin";
-import type { Store, StoreCategory } from "@/data/stores";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useState } from 'react';
+import { Plus, Pencil, Trash2, Search } from 'lucide-react';
+import { useAdmin } from '@/store/admin';
+import type { Store, StoreCategory } from '@/data/stores';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const CATEGORIES: StoreCategory[] = [
-  "Fashion",
-  "Food & Dining",
-  "Banks & Finance",
-  "Health & Beauty",
-  "Electronics & Tech",
-  "Home & Furniture",
-  "Entertainment",
-  "Services",
-  "Other",
+  'Fashion',
+  'Food & Dining',
+  'Banks & Finance',
+  'Health & Beauty',
+  'Electronics & Tech',
+  'Home & Furniture',
+  'Entertainment',
+  'Services',
+  'Other',
 ];
 
 const empty: Store = {
-  id: "",
-  name: "",
-  shopNumber: "",
-  category: "Other",
-  phone: "",
-  email: "",
-  description: "",
+  id: '',
+  name: '',
+  shopNumber: '',
+  category: 'Other',
+  phone: '',
+  email: '',
+  description: '',
   mapX: 50,
   mapY: 50,
 };
@@ -35,7 +35,7 @@ export default function AdminStoresPage() {
   const stores = useAdmin((s) => s.stores);
   const upsertStore = useAdmin((s) => s.upsertStore);
   const removeStore = useAdmin((s) => s.removeStore);
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState('');
   const [editing, setEditing] = useState<Store | null>(null);
 
   const filtered = stores.filter(
@@ -58,7 +58,7 @@ export default function AdminStoresPage() {
     upsertStore({
       ...editing,
       name: editing.name.trim(),
-      shopNumber: editing.shopNumber.trim() || "—",
+      shopNumber: editing.shopNumber.trim() || '—',
     });
     setEditing(null);
   }
@@ -112,7 +112,7 @@ export default function AdminStoresPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3 text-ink-muted hidden md:table-cell">
-                  {s.phone || "—"}
+                  {s.phone || '—'}
                 </td>
                 <td className="px-4 py-3 text-right">
                   <button
@@ -147,9 +147,9 @@ export default function AdminStoresPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-forest/40 p-4">
           <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="font-serif text-xl font-medium text-forest">
-              {editing.id.startsWith("store-") && !stores.find((s) => s.id === editing.id)
-                ? "New store"
-                : "Edit store"}
+              {editing.id.startsWith('store-') && !stores.find((s) => s.id === editing.id)
+                ? 'New store'
+                : 'Edit store'}
             </h2>
             <div className="mt-4 grid gap-3">
               <label className="block text-sm">
