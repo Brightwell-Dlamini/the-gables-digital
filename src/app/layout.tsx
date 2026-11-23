@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Lora, Inter } from "next/font/google";
 import "./globals.css";
-import { UtilityBar } from "@/components/UtilityBar";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { MagneticCursor } from "@/components/providers/MagneticCursor";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { PublicChrome } from "@/components/providers/PublicChrome";
 import { cn } from "@/lib/utils";
 
 const lora = Lora({
@@ -115,13 +113,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-sand font-sans antialiased">
         <ThemeProvider>
           <SmoothScroll>
-            <a href="#main-content" className="skip-link">
-              Skip to main content
-            </a>
-            <UtilityBar />
-            <Navbar />
-            <main id="main-content">{children}</main>
-            <Footer />
+            <PublicChrome>{children}</PublicChrome>
             <MagneticCursor />
           </SmoothScroll>
         </ThemeProvider>
