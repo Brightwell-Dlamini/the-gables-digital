@@ -1,7 +1,8 @@
-export interface Showtimes {
+export interface MovieShow {
+  id: string;
   title: string;
-  times: string[];
   rating: string;
+  times: string[];
   genre?: string;
 }
 
@@ -13,11 +14,29 @@ export interface CommunityEvent {
   tag?: string;
 }
 
-export const showtimes: Showtimes[] = [
-  { title: "The Wild Horizon", times: ["14:00", "17:15", "20:30"], rating: "PG-13", genre: "Adventure" },
-  { title: "Valley of Stars", times: ["13:30", "16:45", "19:50"], rating: "PG", genre: "Family" },
-  { title: "Night at the Gables", times: ["15:00", "18:20", "21:00"], rating: "16", genre: "Drama" },
-  { title: "Ezulwini Echoes", times: ["12:45", "16:00", "19:15"], rating: "PG", genre: "Documentary" },
+/** Mock showtimes — replace with live feed when available */
+export const movieShowtimes: MovieShow[] = [
+  {
+    id: "wild-horizon",
+    title: "The Wild Horizon",
+    rating: "PG-13",
+    times: ["14:00", "17:15", "20:30"],
+    genre: "Adventure",
+  },
+  {
+    id: "valley-stars",
+    title: "Valley of Stars",
+    rating: "PG",
+    times: ["13:30", "16:45", "19:50"],
+    genre: "Family",
+  },
+  {
+    id: "night-gables",
+    title: "Night at the Gables",
+    rating: "16",
+    times: ["15:00", "18:20", "21:00"],
+    genre: "Drama",
+  },
 ];
 
 export const communityEvents: CommunityEvent[] = [
@@ -25,28 +44,21 @@ export const communityEvents: CommunityEvent[] = [
     id: "spring",
     title: "Spring into Action",
     date: "Ongoing",
-    description: "Celebrate the season with special offers across fashion and lifestyle stores throughout the centre.",
+    description: "Celebrate the arrival of spring with special offers across fashion and lifestyle stores.",
     tag: "Promotion",
   },
   {
     id: "excursions",
     title: "School Excursions Welcome",
     date: "By arrangement",
-    description: "The Gables welcomes school groups and tour buses. Contact the centre to plan a safe, structured visit.",
+    description: "The Gables welcomes school groups and tour buses. Contact us to plan your visit.",
     tag: "Community",
   },
   {
     id: "solar",
     title: "Solar Future",
     date: "Coming soon",
-    description: "Rooftop solar installation is underway — a major step toward cleaner energy for the centre and the valley.",
+    description: "Rooftop solar installation underway — a major step toward cleaner energy for the centre.",
     tag: "Sustainability",
-  },
-  {
-    id: "weekend-market",
-    title: "Weekend Artisan Corner",
-    date: "Saturdays",
-    description: "Local makers and food stalls in the open courts — coffee, craft and conversation.",
-    tag: "Market",
   },
 ];

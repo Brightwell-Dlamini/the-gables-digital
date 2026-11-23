@@ -6,10 +6,30 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const slides = [
-  { id: 1, label: "Retail frontage", caption: "High-visibility shopfront along the main court.", gradient: "from-forest via-forest-600 to-forest-800" },
-  { id: 2, label: "Open plan interior", caption: "Flexible shell ready for fashion, F&B or services fit-out.", gradient: "from-forest-700 via-forest to-terracotta/40" },
-  { id: 3, label: "Court outlook", caption: "Daylight and footfall from the open-air promenade.", gradient: "from-sand via-forest-100 to-forest-600" },
-  { id: 4, label: "Service & back-of-house", caption: "Loading access and practical infrastructure for operators.", gradient: "from-ink via-forest-800 to-forest" },
+  {
+    id: 1,
+    label: "Retail frontage",
+    caption: "High-visibility shopfront along the main court.",
+    gradient: "from-forest via-forest-600 to-forest-800",
+  },
+  {
+    id: 2,
+    label: "Open plan interior",
+    caption: "Flexible shell ready for fashion, F&B or services fit-out.",
+    gradient: "from-forest-700 via-forest to-terracotta/40",
+  },
+  {
+    id: 3,
+    label: "Court outlook",
+    caption: "Daylight and footfall from the open-air promenade.",
+    gradient: "from-sand via-forest-100 to-forest-600",
+  },
+  {
+    id: 4,
+    label: "Service & back-of-house",
+    caption: "Loading access and practical infrastructure for operators.",
+    gradient: "from-ink via-forest-800 to-forest",
+  },
 ];
 
 export function SpaceTour() {
@@ -19,7 +39,7 @@ export function SpaceTour() {
   const next = () => setIndex((i) => (i === slides.length - 1 ? 0 : i + 1));
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-forest/10 bg-white shadow-glass-sm dark:border-white/10 dark:bg-forest-800">
+    <div className="overflow-hidden rounded-2xl border border-forest/10 bg-white shadow-glass-sm">
       <div className="relative aspect-[16/9] w-full overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
@@ -37,16 +57,16 @@ export function SpaceTour() {
             </div>
           </motion.div>
         </AnimatePresence>
-        <button type="button" onClick={prev} className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2 text-forest shadow-md hover:bg-white dark:bg-forest-900/90 dark:text-sand" aria-label="Previous view">
+        <button type="button" onClick={prev} className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2 text-forest shadow-md hover:bg-white" aria-label="Previous view">
           <ChevronLeft className="h-5 w-5" />
         </button>
-        <button type="button" onClick={next} className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2 text-forest shadow-md hover:bg-white dark:bg-forest-900/90 dark:text-sand" aria-label="Next view">
+        <button type="button" onClick={next} className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/90 p-2 text-forest shadow-md hover:bg-white" aria-label="Next view">
           <ChevronRight className="h-5 w-5" />
         </button>
       </div>
       <div className="flex items-center justify-center gap-2 px-4 py-3">
         {slides.map((s, i) => (
-          <button key={s.id} type="button" onClick={() => setIndex(i)} className={cn("h-1.5 rounded-full transition-all", i === index ? "w-6 bg-terracotta" : "w-1.5 bg-forest/20 dark:bg-sand/30")} aria-label={`View ${s.label}`} aria-current={i === index} />
+          <button key={s.id} type="button" onClick={() => setIndex(i)} className={cn("h-1.5 rounded-full transition-all", i === index ? "w-6 bg-terracotta" : "w-1.5 bg-forest/20")} aria-label={`View ${s.label}`} aria-current={i === index} />
         ))}
       </div>
     </div>
