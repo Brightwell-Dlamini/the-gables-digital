@@ -36,7 +36,7 @@ export default function DirectoryPage() {
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-ink-muted">Discover</p>
           <h1 className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-forest tracking-tight">Smart Directory</h1>
           <p className="mt-3 max-w-2xl text-ink-muted leading-relaxed">
-            Explore 96+ stores with fuzzy search, filters and favourites. Map view includes centre layout and Ezulwini Valley landmarks.
+            Explore 96+ stores, restaurants and services. Fuzzy search, filter and save favourites. Map view shows the centre and Ezulwini Valley landmarks.
           </p>
         </div>
       </section>
@@ -46,7 +46,7 @@ export default function DirectoryPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
-              <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search e.g. Wool, bank, coffee…" className="w-full rounded-lg border border-forest/15 bg-white py-2.5 pl-10 pr-10 text-sm text-forest placeholder:text-ink-muted/70 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30" aria-label="Search directory" />
+              <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search — try Wool, bank, coffee…" className="w-full rounded-lg border border-forest/15 bg-white py-2.5 pl-10 pr-10 text-sm text-forest placeholder:text-ink-muted/70 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30" aria-label="Search directory" />
               {query && (
                 <button type="button" onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted hover:text-forest" aria-label="Clear search">
                   <X className="h-4 w-4" />
@@ -54,32 +54,30 @@ export default function DirectoryPage() {
               )}
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <button type="button" onClick={() => setShowFavsOnly((v) => !v)} className={cn("rounded-full px-3 py-1.5 text-sm font-medium transition-colors border", showFavsOnly ? "bg-terracotta text-white border-terracotta" : "bg-white text-ink-muted border-forest/10 hover:border-forest/30")} aria-pressed={showFavsOnly}>
+              <button type="button" onClick={() => setShowFavsOnly((v) => !v)} className={cn("rounded-full px-3 py-1.5 text-sm font-medium transition-colors border", showFavsOnly ? "bg-terracotta text-white border-terracotta" : "bg-white text-ink-muted border-forest/10")} aria-pressed={showFavsOnly}>
                 Favourites {ids.length > 0 && `(${ids.length})`}
               </button>
               <div className="flex items-center gap-1 rounded-lg border border-forest/15 bg-white p-1">
-                <button type="button" onClick={() => setViewMode("grid")} className={cn("flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors", viewMode === "grid" ? "bg-forest text-white" : "text-ink-muted hover:text-forest")} aria-pressed={viewMode === "grid"}>
+                <button type="button" onClick={() => setViewMode("grid")} className={cn("flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium", viewMode === "grid" ? "bg-forest text-white" : "text-ink-muted")} aria-pressed={viewMode === "grid"}>
                   <LayoutGrid className="h-4 w-4" /> Grid
                 </button>
-                <button type="button" onClick={() => setViewMode("map")} className={cn("flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors", viewMode === "map" ? "bg-forest text-white" : "text-ink-muted hover:text-forest")} aria-pressed={viewMode === "map"}>
+                <button type="button" onClick={() => setViewMode("map")} className={cn("flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium", viewMode === "map" ? "bg-forest text-white" : "text-ink-muted")} aria-pressed={viewMode === "map"}>
                   <MapIcon className="h-4 w-4" /> Map
                 </button>
               </div>
             </div>
           </div>
           <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
-            <button type="button" onClick={() => setActiveCategory("All")} className={cn("shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", activeCategory === "All" ? "bg-forest text-white" : "bg-white text-ink-muted border border-forest/10 hover:border-forest/30 hover:text-forest")}>All</button>
+            <button type="button" onClick={() => setActiveCategory("All")} className={cn("shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium", activeCategory === "All" ? "bg-forest text-white" : "bg-white text-ink-muted border border-forest/10")}>All</button>
             {categories.map((cat) => (
-              <button key={cat} type="button" onClick={() => setActiveCategory(cat)} className={cn("shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors", activeCategory === cat ? "bg-forest text-white" : "bg-white text-ink-muted border border-forest/10 hover:border-forest/30 hover:text-forest")}>{cat}</button>
+              <button key={cat} type="button" onClick={() => setActiveCategory(cat)} className={cn("shrink-0 rounded-full px-3.5 py-1.5 text-sm font-medium", activeCategory === cat ? "bg-forest text-white" : "bg-white text-ink-muted border border-forest/10")}>{cat}</button>
             ))}
           </div>
         </div>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="mb-6">
-          <p className="text-sm text-ink-muted">{filtered.length} {filtered.length === 1 ? "result" : "results"}{query && <> for “<span className="font-medium text-forest">{query}</span>”</>}</p>
-        </div>
+        <p className="mb-6 text-sm text-ink-muted">{filtered.length} {filtered.length === 1 ? "result" : "results"}{query && <> for “<span className="font-medium text-forest">{query}</span>”</>}</p>
         {viewMode === "grid" ? (
           <LayoutGroup>
             <motion.div layout className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -91,7 +89,7 @@ export default function DirectoryPage() {
             </motion.div>
           </LayoutGroup>
         ) : (
-          <CentreMap stores={filtered} onSelect={setSelectedStore} />
+          <CentreMap stores={filtered} onSelect={setSelectedStore} showValley />
         )}
         {filtered.length === 0 && (
           <div className="py-20 text-center">
