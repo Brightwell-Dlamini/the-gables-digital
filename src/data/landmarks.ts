@@ -7,6 +7,7 @@ export interface Landmark {
   type: "centre" | "embassy" | "nature" | "town";
 }
 
+/** Key places around The Gables in the Ezulwini Valley */
 export const landmarks: Landmark[] = [
   {
     id: "the-gables",
