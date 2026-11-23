@@ -27,12 +27,9 @@ export default function HomePage() {
           </video>
           <div className="absolute inset-0 bg-forest/70 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/40 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-terracotta/25 via-transparent to-transparent" />
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 text-white">
-          <motion.p custom={0} initial="hidden" animate="visible" variants={fadeUp} className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-sand/80">
-            Ezulwini Valley · Eswatini
-          </motion.p>
+          <motion.p custom={0} initial="hidden" animate="visible" variants={fadeUp} className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-sand/80">Ezulwini Valley · Eswatini</motion.p>
           <h1 className="max-w-3xl font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] tracking-tight">
             {words.map((word, i) => (
               <motion.span key={word} initial={{ opacity: 0, y: "100%" }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + i * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }} className="inline-block mr-[0.25em]">{word}</motion.span>
@@ -41,20 +38,16 @@ export default function HomePage() {
             <motion.span initial={{ opacity: 0, y: "100%" }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.7, ease: [0.16, 1, 0.3, 1] }} className="inline-block text-sand">African sun.</motion.span>
           </h1>
           <motion.p custom={3} initial="hidden" animate="visible" variants={fadeUp} className="mt-6 max-w-xl text-lg text-white/85 leading-relaxed">
-            The Gables is more than a shopping centre. It is the digital concierge and lifestyle heart of Ezulwini — 96+ brands, free secure parking, cinema, banking and the valley’s finest open-air retail experience.
+            The Gables is the digital concierge and lifestyle heart of Ezulwini — 96+ brands, free secure parking, cinema, banking and open-air retail.
           </motion.p>
           <motion.div custom={4} initial="hidden" animate="visible" variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-4">
-            <Button asChild size="lg" variant="terracotta" className="gap-2">
-              <Link href="/directory">Explore Directory <ArrowRight className="h-4 w-4" /></Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:text-white">
-              <Link href="/leasing">Lease a Space</Link>
-            </Button>
+            <Button asChild size="lg" variant="terracotta" className="gap-2"><Link href="/directory">Explore Directory <ArrowRight className="h-4 w-4" /></Link></Button>
+            <Button asChild size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:text-white"><Link href="/leasing">Lease a Space</Link></Button>
           </motion.div>
         </div>
       </section>
 
-      <section className="border-y border-forest/10 bg-white dark:border-white/10 dark:bg-forest-900">
+      <section className="border-y border-forest/10 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-6 py-10 md:grid-cols-4">
             {[
@@ -64,11 +57,9 @@ export default function HomePage() {
               { icon: MapPin, label: "24,115 m²", sub: "Free secure parking" },
             ].map((item) => (
               <div key={item.label} className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest/5 text-forest">
-                  <item.icon className="h-5 w-5" />
-                </div>
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest/5 text-forest"><item.icon className="h-5 w-5" /></div>
                 <div>
-                  <p className="font-serif text-lg font-medium text-forest dark:text-sand">{item.label}</p>
+                  <p className="font-serif text-lg font-medium text-forest">{item.label}</p>
                   <p className="text-sm text-ink-muted">{item.sub}</p>
                 </div>
               </div>
@@ -86,19 +77,6 @@ export default function HomePage() {
           <div className="mt-8"><Button asChild size="lg" variant="terracotta"><Link href="/leasing">Start your enquiry</Link></Button></div>
         </div>
       </section>
-
-      <footer className="border-t border-forest/10 bg-sand py-12 dark:border-white/10 dark:bg-forest-900">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-forest text-white font-serif text-sm font-semibold">G</div>
-              <span className="font-serif text-lg text-forest dark:text-sand">The Gables</span>
-            </div>
-            <p className="text-sm text-ink-muted text-center md:text-left">MR103, Shebas Rocks, Ezulwini · Kingdom of Eswatini</p>
-            <p className="text-xs text-ink-muted">© {new Date().getFullYear()} The Gables Shopping Centre</p>
-          </div>
-        </div>
-      </footer>
     </>
   );
 }

@@ -91,17 +91,15 @@ export function CentreMap({ stores, onSelect, showValley = true }: CentreMapProp
   }, [L]);
 
   if (!ready || !MapContainer) {
-    return (
-      <div className="flex aspect-[16/10] w-full items-center justify-center rounded-2xl border border-forest/10 bg-forest/5 text-ink-muted">Loading map…</div>
-    );
+    return <div className="flex aspect-[16/10] w-full items-center justify-center rounded-2xl border border-forest/10 bg-forest/5 text-ink-muted">Loading map…</div>;
   }
 
   return (
     <div className="space-y-3">
       {showValley && (
         <div className="flex flex-wrap items-center gap-2">
-          <button type="button" onClick={() => setValley(false)} className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${!valley ? "bg-forest text-white" : "bg-white text-ink-muted border border-forest/10"}`}>Centre layout</button>
-          <button type="button" onClick={() => setValley(true)} className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${valley ? "bg-forest text-white" : "bg-white text-ink-muted border border-forest/10"}`}>Ezulwini Valley</button>
+          <button type="button" onClick={() => setValley(false)} className={`rounded-full px-3 py-1.5 text-xs font-medium ${!valley ? "bg-forest text-white" : "bg-white text-ink-muted border border-forest/10"}`}>Centre layout</button>
+          <button type="button" onClick={() => setValley(true)} className={`rounded-full px-3 py-1.5 text-xs font-medium ${valley ? "bg-forest text-white" : "bg-white text-ink-muted border border-forest/10"}`}>Ezulwini Valley</button>
         </div>
       )}
       <div className="aspect-[16/10] w-full overflow-hidden rounded-2xl border border-forest/10 shadow-glass-sm">
@@ -121,18 +119,12 @@ export function CentreMap({ stores, onSelect, showValley = true }: CentreMapProp
           <TileLayer attribution='&copy; OpenStreetMap' url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
           {!valley && stores.map((store) => (
             <Marker key={store.id} position={toLatLng(store)} icon={storeIcons[store.id]} eventHandlers={{ click: () => onSelect(store) }}>
-              <Popup>
-                <strong className="font-serif text-forest">{store.name}</strong><br />Shop {store.shopNumber}<br />
-                <button type="button" className="mt-1 text-xs text-terracotta underline" onClick={() => onSelect(store)}>View details</button>
-              </Popup>
+              <Popup><strong>{store.name}</strong><br />Shop {store.shopNumber}</Popup>
             </Marker>
           ))}
           {valley && landmarks.map((lm) => (
             <Marker key={lm.id} position={[lm.lat, lm.lng]} icon={landmarkIcons[lm.id]}>
-              <Popup>
-                <strong className="font-serif text-forest">{lm.name}</strong><br />
-                <span className="text-sm text-ink-muted">{lm.description}</span>
-              </Popup>
+              <Popup><strong>{lm.name}</strong><br />{lm.description}</Popup>
             </Marker>
           ))}
         </MapContainer>
