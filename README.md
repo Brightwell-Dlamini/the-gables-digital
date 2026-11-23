@@ -1,47 +1,31 @@
 # The Gables Digital Concierge
 
-**Modern Alpine meets African Sun** — the official digital platform for The Gables Shopping Centre, Ezulwini, Eswatini.
+**Modern Alpine meets African Sun** — digital platform for The Gables Shopping Centre, Ezulwini, Eswatini.
 
-A production-ready Next.js 14 application serving as both lifestyle concierge and leasing engine for one of Eswatini’s premier retail destinations.
+## Features
 
-## Design System
-
-- **Primary**: Deep Forest Green `#0F2E1F`
-- **Background**: Warm Sand `#F3EFE6`
-- **Accent / CTA**: Terracotta `#D95F43`
-- **Typography**: Lora (editorial serif) + Inter (UI sans)
+- Smart Directory with **fuzzy search** (fuse.js), category filters, favourites, Framer Motion grid
+- Interactive **Leaflet map** — centre pin layout + Ezulwini Valley landmarks (Mantenga, U.S. Embassy vicinity, Mlilwane)
+- Animated map pins with pulse
+- Multi-step **Leasing** wizard + space tour slider + document upload
+- **Why The Gables** section with scroll-linked SVG path animations
+- Custom thin-line **category SVG icons**
+- Movie Zone & community board
+- Dark mode + high-contrast a11y toggles
+- Lenis smooth scroll + magnetic cursor (desktop)
+- JSON-LD ShoppingCenter structured data
 
 ## Stack
 
-- Next.js 14 (App Router) + TypeScript
-- Tailwind CSS with semantic tokens
-- Framer Motion
-- shadcn/ui primitives (Radix)
-- Zustand (planned for favourites / filters)
-- react-hook-form + zod (leasing wizard)
+Next.js 14 · TypeScript · Tailwind · Framer Motion · Zustand · Leaflet · fuse.js · react-hook-form · Zod
 
-## Getting Started
+## Develop
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Features (Foundation)
-
-- Smart Utility Bar with live open/closed status (Africa/Mbabane timezone)
-- Glassmorphism sticky Navbar
-- Cinematic hero with kinetic-ready structure
-- Directory, Events, Leasing and About routes (expandable)
-- Fully accessible focus states and semantic markup
-- SEO-ready metadata + structured data ready
-
 ## Deploy
 
-Connected to Vercel. Push to `main` to trigger production deployment.
-
----
-
-Built as a blueprint for premium African retail destinations.
+Connected to Vercel — push to `main` for production.
