@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Search, LayoutGrid, Map as MapIcon, X } from "lucide-react";
-import { stores, categories, searchStores, type Store, type StoreCategory } from "@/data/stores";
+import { stores, categories, type Store, type StoreCategory } from "@/data/stores";
+import { fuzzySearchStores } from "@/lib/search";
 import { StoreCard } from "@/components/directory/StoreCard";
 import { QuickView } from "@/components/directory/QuickView";
 import { CentreMap } from "@/components/directory/CentreMap";
@@ -25,7 +26,7 @@ export default function DirectoryPage() {
     let list = stores;
     if (showFavsOnly) list = list.filter((s) => ids.includes(s.id));
     if (activeCategory !== "All") list = list.filter((s) => s.category === activeCategory);
-    return searchStores(query, list);
+    return fuzzySearchStores(query, list);
   }, [query, activeCategory, showFavsOnly, ids]);
 
   return (
@@ -35,7 +36,7 @@ export default function DirectoryPage() {
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-ink-muted">Discover</p>
           <h1 className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-forest tracking-tight">Smart Directory</h1>
           <p className="mt-3 max-w-2xl text-ink-muted leading-relaxed">
-            Explore 96+ stores, restaurants and services. Search, filter and save your favourites. Switch to map view for the live layout of the centre.
+            Explore 96+ stores with fuzzy search, filters and favourites. Map view includes centre layout and Ezulwini Valley landmarks.
           </p>
         </div>
       </section>
@@ -45,7 +46,7 @@ export default function DirectoryPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
-              <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search stores, e.g. Woolworths, bank, coffee…" className="w-full rounded-lg border border-forest/15 bg-white py-2.5 pl-10 pr-10 text-sm text-forest placeholder:text-ink-muted/70 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30" aria-label="Search directory" />
+              <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search e.g. Wool, bank, coffee…" className="w-full rounded-lg border border-forest/15 bg-white py-2.5 pl-10 pr-10 text-sm text-forest placeholder:text-ink-muted/70 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30" aria-label="Search directory" />
               {query && (
                 <button type="button" onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted hover:text-forest" aria-label="Clear search">
                   <X className="h-4 w-4" />
