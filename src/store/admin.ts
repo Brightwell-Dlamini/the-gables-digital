@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { stores as seedStores, type Store } from "@/data/stores";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { stores as seedStores, type Store } from '@/data/stores';
 import {
   communityEvents as seedEvents,
   showtimes as seedShowtimes,
-} from "@/data/events";
-import { promotions as seedPromotions } from "@/data/promotions";
+} from '@/data/events';
+import { promotions as seedPromotions } from '@/data/promotions';
 import type {
   ContactMessage,
   LeasingApplication,
@@ -17,8 +17,10 @@ import type {
   SeasonalThemeId,
   SiteSettings,
   ThemeSettings,
-} from "@/lib/admin/types";
-import { DEFAULT_THEME_SCHEDULE } from "@/lib/themes/seasonal";
+} from '@/lib/admin/types';
+import { DEFAULT_THEME_SCHEDULE } from '@/lib/themes/seasonal';
+import { DEFAULT_MEDIA } from '@/lib/media/defaults';
+import type { MediaAsset } from '@/lib/supabase/data';
 
 function uid(prefix: string) {
   return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
@@ -26,18 +28,18 @@ function uid(prefix: string) {
 
 const defaultSettings: SiteSettings = {
   hours: {
-    monFri: "09:00 – 17:00",
-    saturday: "09:00 – 14:00",
-    sunday: "09:00 – 13:00",
+    monFri: '09:00 – 17:00',
+    saturday: '09:00 – 14:00',
+    sunday: '09:00 – 13:00',
   },
   contact: {
-    phone: "+268 2416 1600",
-    email: "info@thegables.co.sz",
-    address: "MR103, Shebas Rocks, Ezulwini, Eswatini",
+    phone: '+268 2416 1600',
+    email: 'info@thegables.co.sz',
+    address: 'MR103, Shebas Rocks, Ezulwini, Eswatini',
   },
   theme: {
-    mode: "auto",
-    themeId: "default",
+    mode: 'auto',
+    themeId: 'default',
     schedule: DEFAULT_THEME_SCHEDULE,
   },
   showMovieZone: true,
@@ -46,49 +48,49 @@ const defaultSettings: SiteSettings = {
 
 const seedLeasing: LeasingApplication[] = [
   {
-    id: "lease-seed-1",
+    id: 'lease-seed-1',
     createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-    persona: "Fashion",
-    spaceSize: "medium",
-    name: "Thandi Nkambule",
-    email: "thandi@example.com",
-    phone: "+268 7600 1122",
-    company: "Valley Styles",
-    message: "Looking for a mid-size unit near the main court.",
-    status: "new",
+    persona: 'Fashion',
+    spaceSize: 'medium',
+    name: 'Thandi Nkambule',
+    email: 'thandi@example.com',
+    phone: '+268 7600 1122',
+    company: 'Valley Styles',
+    message: 'Looking for a mid-size unit near the main court.',
+    status: 'new',
   },
   {
-    id: "lease-seed-2",
+    id: 'lease-seed-2',
     createdAt: new Date(Date.now() - 86400000 * 5).toISOString(),
-    persona: "Food",
-    spaceSize: "small",
-    name: "Sipho Dlamini",
-    email: "sipho.cafe@example.com",
-    phone: "+268 7611 3344",
+    persona: 'Food',
+    spaceSize: 'small',
+    name: 'Sipho Dlamini',
+    email: 'sipho.cafe@example.com',
+    phone: '+268 7611 3344',
     company: "Sipho's Kitchen",
-    status: "in_review",
-    notes: "Follow up on power requirements",
+    status: 'in_review',
+    notes: 'Follow up on power requirements',
   },
 ];
 
 const seedMessages: ContactMessage[] = [
   {
-    id: "msg-seed-1",
+    id: 'msg-seed-1',
     createdAt: new Date(Date.now() - 3600000 * 8).toISOString(),
-    name: "Nomsa Zwane",
-    email: "nomsa@example.com",
-    subject: "general",
-    message: "Do you allow school group visits on Saturdays?",
-    status: "unread",
+    name: 'Nomsa Zwane',
+    email: 'nomsa@example.com',
+    subject: 'general',
+    message: 'Do you allow school group visits on Saturdays?',
+    status: 'unread',
   },
   {
-    id: "msg-seed-2",
+    id: 'msg-seed-2',
     createdAt: new Date(Date.now() - 86400000).toISOString(),
-    name: "Media Desk",
-    email: "press@example.com",
-    subject: "media",
-    message: "Requesting a quote on the solar project for a feature.",
-    status: "read",
+    name: 'Media Desk',
+    email: 'press@example.com',
+    subject: 'media',
+    message: 'Requesting a quote on the solar project for a feature.',
+    status: 'read',
   },
 ];
 
@@ -100,6 +102,7 @@ interface AdminState {
   leasing: LeasingApplication[];
   messages: ContactMessage[];
   settings: SiteSettings;
+  media: MediaAsset[];
   upsertStore: (store: Store) => void;
   removeStore: (id: string) => void;
   upsertEvent: (event: ManagedEvent) => void;
@@ -109,23 +112,24 @@ interface AdminState {
   upsertPromotion: (p: ManagedPromotion) => void;
   removePromotion: (id: string) => void;
   addLeasing: (
-    app: Omit<LeasingApplication, "id" | "createdAt" | "status"> &
-      { status?: LeasingApplication["status"] }
+    app: Omit<LeasingApplication, 'id' | 'createdAt' | 'status'> &
+      { status?: LeasingApplication['status'] }
   ) => void;
   setLeasingStatus: (
     id: string,
-    status: LeasingApplication["status"],
+    status: LeasingApplication['status'],
     notes?: string
   ) => void;
   addMessage: (
-    msg: Omit<ContactMessage, "id" | "createdAt" | "status"> &
-      { status?: ContactMessage["status"] }
+    msg: Omit<ContactMessage, 'id' | 'createdAt' | 'status'> &
+      { status?: ContactMessage['status'] }
   ) => void;
-  setMessageStatus: (id: string, status: ContactMessage["status"]) => void;
+  setMessageStatus: (id: string, status: ContactMessage['status']) => void;
   updateSettings: (partial: Partial<SiteSettings>) => void;
-  setThemeMode: (mode: ThemeSettings["mode"]) => void;
+  setThemeMode: (mode: ThemeSettings['mode']) => void;
   setManualTheme: (themeId: SeasonalThemeId) => void;
-  setThemeSchedule: (schedule: ThemeSettings["schedule"]) => void;
+  setThemeSchedule: (schedule: ThemeSettings['schedule']) => void;
+  upsertMedia: (asset: MediaAsset) => void;
   resetContentToSeed: () => void;
 }
 
@@ -135,7 +139,7 @@ export const useAdmin = create<AdminState>()(
       stores: seedStores.map((s) => ({ ...s })),
       events: seedEvents.map((e) => ({ ...e, published: true })),
       showtimes: seedShowtimes.map((s, i) => ({
-        id: `show-${i}-${s.title.toLowerCase().replace(/\s+/g, "-")}`,
+        id: `show-${i}-${s.title.toLowerCase().replace(/\s+/g, '-')}`,
         title: s.title,
         rating: s.rating,
         times: s.times,
@@ -150,6 +154,7 @@ export const useAdmin = create<AdminState>()(
       leasing: seedLeasing,
       messages: seedMessages,
       settings: defaultSettings,
+      media: DEFAULT_MEDIA.map((m) => ({ ...m })),
 
       upsertStore: (store) =>
         set((s) => {
@@ -208,9 +213,9 @@ export const useAdmin = create<AdminState>()(
           leasing: [
             {
               ...app,
-              id: uid("lease"),
+              id: uid('lease'),
               createdAt: new Date().toISOString(),
-              status: app.status ?? "new",
+              status: app.status ?? 'new',
             },
             ...s.leasing,
           ],
@@ -227,9 +232,9 @@ export const useAdmin = create<AdminState>()(
           messages: [
             {
               ...msg,
-              id: uid("msg"),
+              id: uid('msg'),
               createdAt: new Date().toISOString(),
-              status: msg.status ?? "unread",
+              status: msg.status ?? 'unread',
             },
             ...s.messages,
           ],
@@ -254,7 +259,7 @@ export const useAdmin = create<AdminState>()(
         set((s) => ({
           settings: {
             ...s.settings,
-            theme: { ...s.settings.theme, mode: "manual", themeId },
+            theme: { ...s.settings.theme, mode: 'manual', themeId },
           },
         })),
       setThemeSchedule: (schedule) =>
@@ -264,6 +269,17 @@ export const useAdmin = create<AdminState>()(
             theme: { ...s.settings.theme, schedule },
           },
         })),
+
+      upsertMedia: (asset) =>
+        set((s) => {
+          const idx = s.media.findIndex((x) => x.id === asset.id || x.slot === asset.slot);
+          if (idx >= 0) {
+            const next = [...s.media];
+            next[idx] = asset;
+            return { media: next };
+          }
+          return { media: [...s.media, asset] };
+        }),
 
       resetContentToSeed: () =>
         set({
@@ -275,8 +291,9 @@ export const useAdmin = create<AdminState>()(
             published: true,
           })),
           settings: defaultSettings,
+          media: DEFAULT_MEDIA.map((m) => ({ ...m })),
         }),
     }),
-    { name: "gables-admin-v1" }
+    { name: 'gables-admin-v1' }
   )
 );
