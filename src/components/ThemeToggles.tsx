@@ -4,7 +4,9 @@ import { Contrast } from "lucide-react";
 import { useUI } from "@/store/ui";
 import { cn } from "@/lib/utils";
 
-/** Single accessibility control: high-contrast mode only. */
+/**
+ * Single accessibility control: high-contrast mode only.
+ */
 export function ThemeToggles() {
   const { highContrast, toggleHighContrast } = useUI();
 
