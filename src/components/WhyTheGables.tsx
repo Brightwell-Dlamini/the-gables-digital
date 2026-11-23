@@ -46,52 +46,29 @@ export function WhyTheGables() {
   const inView = useInView(ref, { once: true, amount: 0.25 });
 
   return (
-    <section ref={ref} className="py-20 sm:py-28 bg-white dark:bg-forest-900">
+    <section ref={ref} className="py-20 sm:py-28 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="text-sm font-medium uppercase tracking-[0.2em] text-ink-muted"
-          >
+          <motion.p initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }} className="text-sm font-medium uppercase tracking-[0.2em] text-ink-muted">
             Why The Gables
           </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="mt-2 font-serif text-3xl sm:text-4xl font-medium text-forest dark:text-sand text-balance"
-          >
+          <motion.h2 initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.08 }} className="mt-2 font-serif text-3xl sm:text-4xl font-medium text-forest text-balance">
             The centre of choice in the Ezulwini Valley
           </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.14 }}
-            className="mt-4 text-lg text-ink-muted leading-relaxed"
-          >
-            Situated close to two national parks and perfectly connected to Mbabane, Matsapha and Manzini. Curated courts, free secure parking and a lifestyle that feels both elevated and rooted.
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.14 }} className="mt-4 text-lg text-ink-muted leading-relaxed">
+            Situated close to two national parks and perfectly connected to Mbabane, Matsapha and Manzini. Curated courts, free secure parking and a lifestyle that feels elevated and rooted.
           </motion.p>
         </div>
-
         <div className="mt-14 grid gap-8 sm:grid-cols-3">
           {pillars.map((p, i) => (
-            <motion.article
-              key={p.title}
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, delay: 0.15 + i * 0.1 }}
-              className="rounded-2xl border border-forest/10 bg-sand/50 p-6 dark:border-white/10 dark:bg-forest-800/50"
-            >
-              <AnimatedPath d={p.path} delay={0.2 + i * 0.15} />
-              <h3 className="mt-4 font-serif text-xl font-medium text-forest dark:text-sand">{p.title}</h3>
+            <motion.div key={p.title} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }} className="rounded-2xl border border-forest/10 bg-sand/50 p-6">
+              <AnimatedPath d={p.path} delay={0.25 + i * 0.12} />
+              <h3 className="mt-4 font-serif text-xl font-medium text-forest">{p.title}</h3>
               <p className="mt-2 text-sm text-ink-muted leading-relaxed">{p.copy}</p>
-            </motion.article>
+            </motion.div>
           ))}
         </div>
-
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center">
           <Button asChild variant="outline">
             <Link href="/about">Discover the story</Link>
           </Button>

@@ -40,8 +40,8 @@ export function IconBank({ className }: IconProps) {
 export function IconHealth({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" className={cn("h-5 w-5", className)} aria-hidden>
-      <path d="M12 4v16M6 10h12" strokeLinecap="round" />
-      <rect x="5" y="3" width="14" height="18" rx="2" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 8v8M8 12h8" strokeLinecap="round" />
     </svg>
   );
 }
@@ -49,8 +49,8 @@ export function IconHealth({ className }: IconProps) {
 export function IconTech({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" className={cn("h-5 w-5", className)} aria-hidden>
-      <rect x="5" y="3" width="14" height="16" rx="2" />
-      <path d="M9 19h6M12 19v2" strokeLinecap="round" />
+      <rect x="5" y="3" width="14" height="18" rx="2" />
+      <path d="M9 7h6M9 11h6M9 15h4" strokeLinecap="round" />
     </svg>
   );
 }
@@ -58,8 +58,8 @@ export function IconTech({ className }: IconProps) {
 export function IconHome({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" className={cn("h-5 w-5", className)} aria-hidden>
-      <path d="M4 12l8-7 8 7v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7z" strokeLinejoin="round" />
-      <path d="M10 20v-6h4v6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 10l8-6 8 6v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9z" strokeLinejoin="round" />
+      <path d="M9 20v-6h6v6" strokeLinecap="round" />
     </svg>
   );
 }
@@ -77,7 +77,7 @@ export function IconServices({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" className={cn("h-5 w-5", className)} aria-hidden>
       <circle cx="12" cy="12" r="3" />
-      <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" strokeLinecap="round" />
+      <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4" strokeLinecap="round" />
     </svg>
   );
 }
@@ -85,13 +85,13 @@ export function IconServices({ className }: IconProps) {
 export function IconOther({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" className={cn("h-5 w-5", className)} aria-hidden>
-      <circle cx="12" cy="12" r="8" />
-      <path d="M12 8v4l2 2" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8 12h8" strokeLinecap="round" />
     </svg>
   );
 }
 
-const map: Record<StoreCategory, (props: IconProps) => JSX.Element> = {
+const map: Record<StoreCategory, (p: IconProps) => JSX.Element> = {
   Fashion: IconFashion,
   "Food & Dining": IconDining,
   "Banks & Finance": IconBank,
@@ -104,6 +104,6 @@ const map: Record<StoreCategory, (props: IconProps) => JSX.Element> = {
 };
 
 export function CategoryIcon({ category, className }: { category: StoreCategory; className?: string }) {
-  const Comp = map[category] ?? IconOther;
-  return <Comp className={className} />;
+  const Icon = map[category] ?? IconOther;
+  return <Icon className={className} />;
 }
