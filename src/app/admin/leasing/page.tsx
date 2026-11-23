@@ -1,40 +1,39 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useAdmin } from "@/store/admin";
-import type { LeasingApplication, LeasingStatus } from "@/lib/admin/types";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useState } from 'react';
+import { useAdmin } from '@/store/admin';
+import type { LeasingApplication, LeasingStatus } from '@/lib/admin/types';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const STATUSES: LeasingStatus[] = [
-  "new",
-  "in_review",
-  "approved",
-  "rejected",
-  "archived",
+  'new',
+  'in_review',
+  'shortlisted',
+  'offer',
+  'declined',
 ];
 
 export default function AdminLeasingPage() {
-  const applications = useAdmin((s) => s.leasingApplications);
-  const updateLeasingStatus = useAdmin((s) => s.updateLeasingStatus);
-  const updateLeasingNotes = useAdmin((s) => s.updateLeasingNotes);
-  const [filter, setFilter] = useState<LeasingStatus | "all">("all");
+  const applications = useAdmin((s) => s.leasing);
+  const setLeasingStatus = useAdmin((s) => s.setLeasingStatus);
+  const [filter, setFilter] = useState<LeasingStatus | 'all'>('all');
   const [selected, setSelected] = useState<LeasingApplication | null>(null);
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState('');
 
   const list =
-    filter === "all"
+    filter === 'all'
       ? applications
       : applications.filter((a) => a.status === filter);
 
   function open(app: LeasingApplication) {
     setSelected(app);
-    setNotes(app.notes || "");
+    setNotes(app.notes || '');
   }
 
   function saveNotes() {
     if (!selected) return;
-    updateLeasingNotes(selected.id, notes);
+    setLeasingStatus(selected.id, selected.status, notes);
     setSelected({ ...selected, notes });
   }
 
@@ -50,20 +49,20 @@ export default function AdminLeasingPage() {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {(["all", ...STATUSES] as const).map((f) => (
+        {(['all', ...STATUSES] as const).map((f) => (
           <button
             key={f}
             type="button"
             onClick={() => setFilter(f)}
             className={cn(
-              "rounded-full px-3 py-1.5 text-xs font-medium border capitalize",
+              'rounded-full px-3 py-1.5 text-xs font-medium border capitalize',
               filter === f
-                ? "bg-forest text-white border-forest"
-                : "bg-white border-forest/10 text-ink-muted"
+                ? 'bg-forest text-white border-forest'
+                : 'bg-white border-forest/10 text-ink-muted'
             )}
           >
-            {f.replace("_", " ")}
-            {f !== "all" &&
+            {f.replace('_', ' ')}
+            {f !== 'all' &&
               ` (${applications.filter((a) => a.status === f).length})`}
           </button>
         ))}
@@ -80,28 +79,28 @@ export default function AdminLeasingPage() {
               >
                 <span
                   className={cn(
-                    "mt-1.5 h-2 w-2 shrink-0 rounded-full",
-                    a.status === "new"
-                      ? "bg-terracotta"
-                      : a.status === "approved"
-                        ? "bg-emerald-500"
-                        : "bg-forest/30"
+                    'mt-1.5 h-2 w-2 shrink-0 rounded-full',
+                    a.status === 'new'
+                      ? 'bg-terracotta'
+                      : a.status === 'offer'
+                        ? 'bg-emerald-500'
+                        : 'bg-forest/30'
                   )}
                 />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-2">
                     <p className="truncate font-medium text-forest">
-                      {a.businessName || a.contactName}
+                      {a.company || a.name}
                     </p>
                     <time className="shrink-0 text-xs text-ink-muted">
-                      {new Date(a.createdAt).toLocaleDateString("en-SZ")}
+                      {new Date(a.createdAt).toLocaleDateString('en-SZ')}
                     </time>
                   </div>
                   <p className="text-xs text-ink-muted capitalize">
-                    {a.status.replace("_", " ")} · {a.spaceType || "General"}
+                    {a.status.replace('_', ' ')} · {a.persona || a.spaceSize}
                   </p>
                   <p className="mt-1 line-clamp-1 text-sm text-ink-muted">
-                    {a.contactEmail}
+                    {a.email}
                   </p>
                 </div>
               </button>
@@ -117,26 +116,25 @@ export default function AdminLeasingPage() {
 
       {selected && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-forest/40 p-4">
-          <div className="admin-panel w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="font-serif text-xl font-medium text-forest">
-              {selected.businessName || selected.contactName}
+              {selected.company || selected.name}
             </h2>
             <p className="text-sm text-ink-muted">
               <a
-                href={`mailto:${selected.contactEmail}`}
+                href={`mailto:${selected.email}`}
                 className="hover:text-terracotta"
               >
-                {selected.contactEmail}
+                {selected.email}
               </a>
-              {selected.contactPhone && ` · ${selected.contactPhone}`}
+              {selected.phone && ` · ${selected.phone}`}
             </p>
             <p className="mt-2 text-xs font-medium uppercase tracking-wide text-terracotta">
-              {selected.spaceType || "Space inquiry"}
+              {selected.persona} · {selected.spaceSize}
             </p>
             <div className="mt-4 space-y-2 text-sm text-ink">
               <p>
-                <span className="text-ink-muted">Contact:</span>{" "}
-                {selected.contactName}
+                <span className="text-ink-muted">Contact:</span> {selected.name}
               </p>
               {selected.message && (
                 <p className="whitespace-pre-wrap leading-relaxed">
@@ -149,17 +147,17 @@ export default function AdminLeasingPage() {
               <label className="block text-xs font-medium text-forest">
                 Status
                 <select
-                  className="mt-1 w-full rounded-lg border border-forest/15 px-3 py-2 text-sm"
+                  className="mt-1 w-full rounded-lg border border-forest/15 px-3 py-2 text-sm capitalize"
                   value={selected.status}
                   onChange={(e) => {
                     const status = e.target.value as LeasingStatus;
-                    updateLeasingStatus(selected.id, status);
+                    setLeasingStatus(selected.id, status, notes);
                     setSelected({ ...selected, status });
                   }}
                 >
                   {STATUSES.map((s) => (
                     <option key={s} value={s}>
-                      {s.replace("_", " ")}
+                      {s.replace('_', ' ')}
                     </option>
                   ))}
                 </select>
@@ -192,7 +190,7 @@ export default function AdminLeasingPage() {
               </Button>
               <Button variant="terracotta" size="sm" asChild>
                 <a
-                  href={`mailto:${selected.contactEmail}?subject=Re: Leasing at The Gables`}
+                  href={`mailto:${selected.email}?subject=Re: Leasing at The Gables`}
                 >
                   Reply by email
                 </a>
