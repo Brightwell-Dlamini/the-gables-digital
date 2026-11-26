@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Megaphone } from "lucide-react";
 import { promotions } from "@/data/promotions";
 import { Button } from "@/components/ui/button";
 
@@ -15,7 +15,7 @@ export function PromotionsStrip() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-ink-muted flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-terracotta" />
+              <Megaphone className="h-4 w-4 text-terracotta" />
               What's on
             </p>
             <h2 className="mt-2 font-serif text-2xl sm:text-3xl md:text-4xl font-medium text-forest tracking-tight">
@@ -29,7 +29,6 @@ export function PromotionsStrip() {
             </Link>
           </Button>
         </div>
-
         <div className="grid gap-6 sm:grid-cols-2">
           {featured.map((promo, i) => (
             <motion.article
@@ -43,17 +42,10 @@ export function PromotionsStrip() {
               <span className="inline-block rounded-full bg-terracotta/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-terracotta">
                 {promo.tag}
               </span>
-              <h3 className="mt-3 font-serif text-xl sm:text-2xl font-medium text-forest">
-                {promo.title}
-              </h3>
-              <p className="mt-2 text-sm text-ink-muted leading-relaxed max-w-md">
-                {promo.summary}
-              </p>
+              <h3 className="mt-3 font-serif text-xl sm:text-2xl font-medium text-forest">{promo.title}</h3>
+              <p className="mt-2 text-sm text-ink-muted leading-relaxed max-w-md">{promo.summary}</p>
               {promo.href && (
-                <Link
-                  href={promo.href}
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-forest transition-colors hover:text-terracotta"
-                >
+                <Link href={promo.href} className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-forest transition-colors hover:text-terracotta">
                   Learn more
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                 </Link>
