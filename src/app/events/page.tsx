@@ -11,6 +11,7 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 export default function EventsPage() {
   return (
     <div className="min-h-screen bg-sand">
+      {/* Hero */}
       <section className="relative overflow-hidden min-h-[42vh] flex items-end">
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -22,26 +23,44 @@ export default function EventsPage() {
           <div className="absolute inset-0 bg-forest/70 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/40 to-transparent" />
         </div>
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute right-[12%] top-[30%] z-[5] hidden h-20 w-20 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm sm:block"
+          animate={{ y: [0, -14, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute left-[10%] bottom-[35%] z-[5] hidden h-12 w-12 rounded-full bg-terracotta/40 blur-sm sm:block"
+          animate={{ y: [0, 12, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-12 pt-28 text-white">
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-xs font-semibold uppercase tracking-[0.22em] text-terracotta"
+            initial={{ opacity: 0, y: 12, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-terracotta backdrop-blur-sm"
           >
+            <Ticket className="h-3.5 w-3.5" />
             Lifestyle
           </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08, duration: 0.7, ease: easeOut }}
-            className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight max-w-3xl"
-          >
-            What&apos;s on at The Gables
-          </motion.h1>
+          <h1 className="mt-4 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight max-w-3xl overflow-hidden">
+            {["What's", "on", "at", "The", "Gables"].map((w, i) => (
+              <motion.span
+                key={w + i}
+                initial={{ opacity: 0, y: "110%" }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.09, duration: 0.75, ease: easeOut }}
+                className="inline-block mr-[0.22em]"
+              >
+                {w}
+              </motion.span>
+            ))}
+          </h1>
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.18, duration: 0.55 }}
+            transition={{ delay: 0.6, duration: 0.55 }}
             className="mt-4 max-w-xl text-white/85 leading-relaxed"
           >
             Cinema nights, community moments and seasonal energy — the courts
@@ -50,6 +69,7 @@ export default function EventsPage() {
         </div>
       </section>
 
+      {/* Movie Zone */}
       <section className="bg-forest text-white py-16 sm:py-22">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
@@ -72,7 +92,7 @@ export default function EventsPage() {
                 transition={{ delay: 0.08 }}
                 className="mt-2 text-white/70 max-w-xl"
               >
-                Tonight&apos;s lineup. Book at the box office or ask at the info desk.
+                Tonight's lineup. Book at the box office or ask at the info desk.
               </motion.p>
             </div>
           </div>
