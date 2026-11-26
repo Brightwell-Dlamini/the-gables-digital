@@ -15,9 +15,6 @@ export function PublicChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
       <UtilityBar />
       <Navbar />
       <main id="main-content">{children}</main>
