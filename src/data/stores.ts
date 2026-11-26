@@ -17,6 +17,8 @@ export interface Store {
   email?: string;
   category: StoreCategory;
   description?: string;
+  /** Optional brand logo URL (Supabase Storage or CDN). Falls back to monogram. */
+  logoUrl?: string;
   mapX?: number;
   mapY?: number;
 }
