@@ -1,5 +1,6 @@
 import type { Store, StoreCategory } from "@/data/stores";
 
+/** Category → brand plate colours (bg, fg) for monogram logos */
 const CATEGORY_PALETTE: Record<
   StoreCategory,
   { bg: string; fg: string; accent: string }
@@ -19,6 +20,7 @@ export function categoryPalette(category: StoreCategory) {
   return CATEGORY_PALETTE[category] ?? CATEGORY_PALETTE.Other;
 }
 
+/** 1–2 letter monogram from store name */
 export function storeMonogram(name: string): string {
   const cleaned = name
     .replace(/\b(limited|ltd|pty|the|and|&|of|eswatini|swaziland)\b/gi, " ")
