@@ -67,7 +67,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="relative min-h-[92vh] flex items-end overflow-hidden">
+      <section className="relative min-h-[88svh] sm:min-h-[92vh] flex items-center sm:items-end overflow-hidden">
         <div className="absolute inset-0">
           {videoSrc ? (
             <video autoPlay muted loop playsInline poster={posterSrc} className="h-full w-full object-cover scale-105">
@@ -85,7 +85,7 @@ export default function HomePage() {
         <motion.div aria-hidden className="pointer-events-none absolute left-[6%] top-[38%] z-[5] hidden h-16 w-16 rounded-full bg-terracotta/30 blur-sm sm:block" animate={{ y: [0, 14, 0], scale: [1, 1.08, 1] }} transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }} />
         <motion.div aria-hidden className="pointer-events-none absolute bottom-[28%] right-[18%] z-[5] hidden h-10 w-10 rounded-full border-2 border-sand/40 sm:block" animate={{ y: [0, -10, 0], x: [0, 6, 0] }} transition={{ duration: 6.2, repeat: Infinity, ease: 'easeInOut' }} />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 pt-32 text-white">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:pb-16 sm:pt-32 text-white">
           <motion.div initial={{ opacity: 0, y: 16, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.55, ease: easeOut }} className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/12 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-sand backdrop-blur-md shadow-lg shadow-black/10">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-terracotta opacity-80" />
@@ -209,7 +209,7 @@ export default function HomePage() {
                   <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
                     <p className="font-serif text-xl sm:text-2xl font-medium tracking-tight">{cat.label}</p>
                     <p className="mt-1 text-sm text-white/80">{cat.hint}</p>
-                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-sand opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">Browse <ArrowRight className="h-3.5 w-3.5" /></span>
+                    <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-sand opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">Browse <ArrowRight className="h-3 w-3" /></span>
                   </div>
                 </Link>
               </motion.div>
@@ -221,38 +221,43 @@ export default function HomePage() {
       <WhyTheGables />
       <PromotionsStrip />
 
-      <section className="py-20 sm:py-28 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden py-20 sm:py-28 bg-forest text-white">
+        <div className="absolute inset-0 opacity-20">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3b2?w=1600&q=70" alt="" className="h-full w-full object-cover" />
+        </div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
             <div>
-              <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="section-eyebrow">This week</motion.p>
-              <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06, duration: 0.65, ease: easeOut }} className="mt-2 font-serif text-3xl sm:text-4xl font-medium text-forest">What's on</motion.h2>
-              <ul className="mt-8 space-y-4">
-                {nextEvents.map((ev, i) => (
-                  <motion.li key={ev.id} initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="rounded-xl border border-forest/10 bg-sand/40 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-terracotta">{ev.date}</p>
-                    <p className="mt-1 font-serif text-lg text-forest">{ev.title}</p>
-                    <p className="mt-1 text-sm text-ink-muted line-clamp-2">{ev.description}</p>
-                  </motion.li>
-                ))}
-              </ul>
-              <div className="mt-6"><Link href="/events" className="inline-flex items-center gap-1.5 text-sm font-medium text-forest hover:text-terracotta">Full programme <ArrowRight className="h-3.5 w-3.5" /></Link></div>
+              <motion.p initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="text-xs font-semibold uppercase tracking-[0.22em] text-terracotta">Tonight & this week</motion.p>
+              <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06, duration: 0.65, ease: easeOut }} className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-balance">What's on at the mall</motion.h2>
+              <motion.p initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.12 }} className="mt-4 text-white/75 max-w-md leading-relaxed">Cinema nights, community moments and the energy that keeps the courts alive after dark.</motion.p>
+              <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="mt-8">
+                <Button asChild variant="terracotta" className="gap-2 btn-lift"><Link href="/events">Full programme <ArrowRight className="h-4 w-4" /></Link></Button>
+              </motion.div>
             </div>
-            <div>
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-2xl overflow-hidden border border-forest/10 bg-forest text-white">
-                <div className="p-6 sm:p-8">
-                  <div className="flex items-center gap-2 text-terracotta"><Film className="h-5 w-5" /><span className="text-xs font-semibold uppercase tracking-wider">Movie Zone</span></div>
-                  <h3 className="mt-3 font-serif text-2xl font-medium">Tonight's films</h3>
-                  <ul className="mt-6 space-y-4">
-                    {films.map((f, i) => (
-                      <motion.li key={f.title} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 + i * 0.08 }}>
-                        <div className="flex justify-between gap-3"><p className="font-medium">{f.title}</p><span className="text-xs rounded bg-terracotta/90 px-2 py-0.5 shrink-0">{f.rating}</span></div>
-                        <p className="mt-1 text-sm text-white/60">{f.times?.join(' · ')}</p>
-                      </motion.li>
-                    ))}
-                  </ul>
-                  <div className="border-t border-white/10 mt-6 pt-4"><Link href="/events" className="inline-flex items-center gap-1.5 text-sm font-medium text-terracotta hover:text-sand">Full programme <ArrowRight className="h-3.5 w-3.5" /></Link></div>
-                </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <motion.div initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-terracotta"><Film className="h-4 w-4" /><span className="text-xs font-semibold uppercase tracking-wider">Movie Zone</span></div>
+                <ul className="mt-4 space-y-3">
+                  {films.map((f) => (
+                    <li key={f.title} className="border-b border-white/10 pb-3 last:border-0 last:pb-0">
+                      <p className="font-serif text-lg">{f.title}</p>
+                      <p className="mt-0.5 text-sm text-white/60">{f.times?.join(' · ')}</p>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.18 }} className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-terracotta"><Utensils className="h-4 w-4" /><span className="text-xs font-semibold uppercase tracking-wider">Community</span></div>
+                <ul className="mt-4 space-y-3">
+                  {nextEvents.map((e) => (
+                    <li key={e.id} className="border-b border-white/10 pb-3 last:border-0 last:pb-0">
+                      <p className="font-serif text-lg">{e.title}</p>
+                      <p className="mt-0.5 text-sm text-white/60">{e.date}</p>
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             </div>
           </div>
@@ -268,7 +273,9 @@ export default function HomePage() {
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-xl text-white">
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm"><Utensils className="h-3.5 w-3.5" />Food court & dining</motion.div>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
+              <Utensils className="h-3.5 w-3.5" /> Food court & dining
+            </motion.div>
             <motion.h2 initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.08, duration: 0.7, ease: easeOut }} className="mt-5 font-serif text-3xl sm:text-4xl md:text-5xl font-medium leading-tight text-balance">Pause for the plate</motion.h2>
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.16, duration: 0.6 }} className="mt-4 text-lg text-white/85 leading-relaxed">Quick bites between errands or a long lunch under the mountain light — the courts are built for lingering.</motion.p>
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.24 }}>
@@ -287,15 +294,12 @@ export default function HomePage() {
           </div>
           <div className="mt-14 grid gap-6 sm:grid-cols-3">
             {visitPoints.map((p, i) => (
-              <motion.div key={p.title} initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.55, ease: easeOut }} whileHover={{ y: -4 }} className="rounded-2xl border border-forest/10 bg-white p-6 shadow-sm">
+              <motion.div key={p.title} initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.55, ease: easeOut }} className="rounded-2xl border border-forest/10 bg-white p-6 sm:p-7">
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-terracotta/10 text-terracotta"><p.icon className="h-5 w-5" /></div>
                 <h3 className="mt-4 font-serif text-xl font-medium text-forest">{p.title}</h3>
                 <p className="mt-2 text-sm text-ink-muted leading-relaxed">{p.copy}</p>
               </motion.div>
             ))}
-          </div>
-          <div className="mt-10 text-center">
-            <Button asChild variant="outline" className="gap-1.5"><Link href="/visit">Visit guide <ArrowRight className="h-4 w-4" /></Link></Button>
           </div>
         </div>
       </section>
