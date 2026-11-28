@@ -2,156 +2,16 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Shield,
-  Clock,
-  Store,
-  Film,
-  Utensils,
-  Landmark,
-  Car,
-  Sun,
-  ShoppingBag,
-  Sparkles,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { WhyTheGables } from '@/components/WhyTheGables';
-import { PromotionsStrip } from '@/components/PromotionsStrip';
 import { useAdmin } from '@/store/admin';
 import { mediaBySlot } from '@/lib/media/defaults';
-import { communityEvents, showtimes } from '@/data/events';
+import { LandingBody } from '@/components/home/LandingBody';
 import { cn } from '@/lib/utils';
 
-const spring = { type: 'spring' as const, stiffness: 140, damping: 16 };
 const easeOut = [0.16, 1, 0.3, 1] as const;
-
-const popIn = {
-  hidden: { opacity: 0, scale: 0.9, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { delay: i * 0.07, ...spring },
-  }),
-};
-
 const words = ['Come', 'for', 'the', 'brands.'];
 const words2 = ['Stay', 'for', 'the', 'vibe.'];
-
-const loveNotes = [
-  { quote: 'Saturday mornings start here.', who: 'The regulars', n: '01' },
-  { quote: 'Best courtyard energy in the valley.', who: 'Food court crew', n: '02' },
-  { quote: 'Kids run free. Parents actually relax.', who: 'Families', n: '03' },
-  { quote: 'One loop. Everything sorted.', who: 'Weekday warriors', n: '04' },
-];
-
-const categories = [
-  {
-    label: 'Fashion',
-    hint: 'Labels, looks & local style',
-    href: '/directory?cat=Fashion',
-    img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=80',
-  },
-  {
-    label: 'Food & Dining',
-    hint: 'Courtyard flavours all day',
-    href: '/directory?cat=Food%20%26%20Dining',
-    img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&q=80',
-  },
-  {
-    label: 'Health & Beauty',
-    hint: 'Clicks · spas · self-care',
-    href: '/directory?cat=Health%20%26%20Beauty',
-    img: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=900&q=80',
-  },
-  {
-    label: 'Entertainment',
-    hint: 'Movie Zone & more',
-    href: '/events',
-    img: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3b2?w=900&q=80',
-  },
-];
-
-const lifestyleShots = [
-  {
-    src: 'https://images.unsplash.com/photo-1555529902-5261145633bf?w=900&q=80',
-    alt: 'Friends shopping',
-    caption: 'Saturday energy',
-    tall: true,
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1607083206869-4c79715e227f?w=800&q=80',
-    alt: 'Happy shopper',
-    caption: 'Treat yourself',
-    tall: false,
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80',
-    alt: 'Restaurant friends',
-    caption: 'Table for four',
-    tall: false,
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1523381294911-8d03ceec8d2b?w=800&q=80',
-    alt: 'Fashion',
-    caption: 'New season finds',
-    tall: true,
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80',
-    alt: 'Retail floor',
-    caption: 'On the floor',
-    tall: false,
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80',
-    alt: 'Coffee',
-    caption: 'Meet · sip · stay',
-    tall: false,
-  },
-];
-
-const visitPoints = [
-  {
-    icon: Car,
-    title: 'Park free. Shop easy.',
-    copy: '24,115 m² of open-air retail with on-site security and a simple loop off the MR103.',
-  },
-  {
-    icon: Sun,
-    title: 'Valley light, all day',
-    copy: 'Dutch-inspired courts designed for mountain air — shop, dine and linger outdoors.',
-  },
-  {
-    icon: Landmark,
-    title: 'Everything under one roof-line',
-    copy: 'Pick n Pay, Woolworths, Shoprite, Clicks and a full banking strip in one place.',
-  },
-];
-
-const tickerA = [
-  'Open today · 09:00 – 18:00',
-  'Free secure parking',
-  '96+ brands on the floor',
-  'Movie Zone · showtimes live',
-  'Pick n Pay · Woolworths · Shoprite',
-  'Courtyard dining open',
-  'Banking strip ready',
-  'Family-friendly · 24hr security',
-];
-
-const tickerB = [
-  'Fashion · Food · Film',
-  'Ezulwini Valley · MR103',
-  'Shop · dine · linger',
-  'Clicks · spas · self-care',
-  'Tonight at Movie Zone',
-  'Anchors you trust',
-  'Open-air courts',
-  'Come for the brands',
-];
 
 export default function HomePage() {
   const media = useAdmin((s) => s.media);
@@ -162,8 +22,6 @@ export default function HomePage() {
     heroVideo?.poster_url ||
     heroPoster?.url ||
     'https://images.unsplash.com/photo-1555529902-5261145633bf?w=1600&q=80';
-  const nextEvents = communityEvents.slice(0, 3);
-  const films = showtimes.slice(0, 3);
 
   return (
     <>
@@ -194,6 +52,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-terracotta/30 via-transparent to-transparent" />
         </div>
 
+        {/* Floating orbs */}
         <motion.div
           aria-hidden
           className="pointer-events-none absolute right-[8%] top-[20%] z-[5] hidden h-28 w-28 rounded-full border border-white/20 bg-white/5 backdrop-blur-md sm:block"
@@ -288,7 +147,7 @@ export default function HomePage() {
               variant="outline"
               className="rounded-full border-white/35 bg-white/12 text-white hover:bg-white/20 hover:text-white backdrop-blur-md"
             >
-              <Link href="/events">What&apos;s on today</Link>
+              <Link href="/events">What's on today</Link>
             </Button>
           </motion.div>
 
@@ -321,8 +180,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PLACEHOLDER - truncated intentionally for tool size; full file will be restored */}
-      <div className="p-12 text-center text-forest">Loading elevated sections…</div>
+      <LandingBody />
     </>
   );
 }
