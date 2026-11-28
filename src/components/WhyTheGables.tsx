@@ -1,28 +1,31 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const pillars = [
   {
-    title: "Open-air lifestyle",
-    copy: "Dutch-inspired courts, mountain air and an easy flow between fashion, food and film — sunshine included.",
-    emoji: "☀️",
-    accent: "from-amber-400/20 to-transparent",
+    title: "Free secure parking",
+    copy: "Park once. Shop the whole centre. 24-hour security and an on-site police post.",
+    emoji: "🅿️",
+    n: "01",
+    accent: "from-terracotta/20 to-transparent",
   },
   {
-    title: "Everything you need",
+    title: "Anchors you trust",
     copy: "Pick n Pay, Woolworths, Shoprite, Clicks and a full banking strip. One stop, done.",
     emoji: "🛍️",
-    accent: "from-terracotta/20 to-transparent",
+    n: "02",
+    accent: "from-amber-500/15 to-transparent",
   },
   {
     title: "Valley connected",
     copy: "Minutes from Mantenga, Mlilwane and the road between Mbabane and Manzini.",
     emoji: "🗺️",
+    n: "03",
     accent: "from-emerald-500/15 to-transparent",
   },
 ];
@@ -35,10 +38,9 @@ export function WhyTheGables() {
 
   return (
     <section ref={ref} className="py-20 sm:py-28 bg-white overflow-hidden relative">
-      {/* Soft ambient blobs */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 top-1/3 h-64 w-64 rounded-full bg-terracotta/8 blur-3xl"
+        className="pointer-events-none absolute -left-24 top-1/3 h-64 w-64 rounded-full bg-terracotta/10 blur-3xl"
       />
       <div
         aria-hidden
@@ -98,30 +100,38 @@ export function WhyTheGables() {
                 delay: 0.2 + i * 0.12,
               }}
               whileHover={{
-                y: -8,
+                y: -10,
                 transition: { duration: 0.25 },
               }}
-              className="group relative overflow-hidden rounded-2xl border border-forest/10 bg-sand/50 p-6 sm:p-7 transition-shadow hover:shadow-glass"
+              className="group relative overflow-hidden rounded-2xl border border-forest/10 bg-sand/40 p-6 sm:p-8 transition-shadow hover:shadow-glass"
             >
               <div
                 className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${p.accent} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
               />
-              <motion.span
-                initial={{ scale: 0, rotate: -30 }}
-                animate={inView ? { scale: 1, rotate: 0 } : {}}
-                transition={{
-                  type: "spring",
-                  stiffness: 280,
-                  damping: 14,
-                  delay: 0.35 + i * 0.12,
-                }}
-                whileHover={{ rotate: [0, -8, 8, 0], transition: { duration: 0.5 } }}
-                className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-3xl shadow-md"
-                aria-hidden
-              >
-                {p.emoji}
-              </motion.span>
-              <h3 className="relative mt-5 font-serif text-xl sm:text-2xl font-medium text-forest">
+              <div className="relative flex items-start justify-between">
+                <motion.span
+                  initial={{ scale: 0, rotate: -30 }}
+                  animate={inView ? { scale: 1, rotate: 0 } : {}}
+                  transition={{
+                    type: "spring",
+                    stiffness: 280,
+                    damping: 14,
+                    delay: 0.35 + i * 0.12,
+                  }}
+                  whileHover={{
+                    rotate: [0, -10, 10, 0],
+                    transition: { duration: 0.5 },
+                  }}
+                  className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-3xl shadow-md"
+                  aria-hidden
+                >
+                  {p.emoji}
+                </motion.span>
+                <span className="font-serif text-2xl text-forest/15 group-hover:text-terracotta/30 transition-colors">
+                  {p.n}
+                </span>
+              </div>
+              <h3 className="relative mt-6 font-serif text-xl sm:text-2xl font-medium text-forest">
                 {p.title}
               </h3>
               <p className="relative mt-2 text-sm text-ink-muted leading-relaxed">
@@ -137,7 +147,7 @@ export function WhyTheGables() {
           transition={{ delay: 0.6 }}
           className="mt-12 text-center"
         >
-          <Button asChild variant="outline" className="gap-1.5 btn-lift">
+          <Button asChild variant="outline" className="gap-1.5 rounded-full btn-lift">
             <Link href="/about">
               Discover the story <ArrowRight className="h-4 w-4" />
             </Link>
