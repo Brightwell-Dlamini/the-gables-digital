@@ -109,37 +109,63 @@ export function LandingUpper() {
 
       <TodayBoard />
 
-      <section className="relative overflow-hidden bg-white py-12 sm:py-16 border-b border-forest/8">
+      <section className="relative overflow-hidden bg-white py-16 sm:py-24 border-b border-forest/8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-6 text-[11px] font-semibold uppercase tracking-[0.22em] text-terracotta"
-          >
-            Heard on the courts
-          </motion.p>
-          <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-none snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-5 sm:overflow-visible">
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-end mb-12">
+            <div className="lg:col-span-5">
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-[11px] font-semibold uppercase tracking-[0.22em] text-terracotta"
+              >
+                Heard on the courts
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.06, duration: 0.7, ease: easeOut }}
+                className="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-forest text-balance leading-[1.1]"
+              >
+                The things people say when they think we&apos;re not listening
+              </motion.h2>
+            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.12 }}
+              className="lg:col-span-5 lg:col-start-8 text-ink-muted leading-relaxed max-w-md lg:text-right"
+            >
+              Four notes from regulars, families and the food-court crew — the
+              soft proof that this place works.
+            </motion.p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {loveNotes.map((note, i) => (
               <motion.blockquote
                 key={note.who}
-                initial={{ opacity: 0, y: 32, scale: 0.94 }}
+                initial={{ opacity: 0, y: 40, scale: 0.96 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08, ...spring }}
-                whileHover={{ y: -6, transition: { duration: 0.22 } }}
-                className="group relative min-w-[260px] snap-start shrink-0 overflow-hidden rounded-2xl border border-forest/10 bg-sand/40 p-5 sm:min-w-0 hover:border-forest/20 hover:shadow-glass transition-shadow"
+                transition={{ delay: i * 0.1, ...spring }}
+                whileHover={{ y: -8, transition: { duration: 0.22 } }}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-forest/10 bg-sand/30 p-6 sm:p-7 min-h-[240px] hover:border-forest/20 hover:shadow-glass transition-shadow"
               >
-                <span className="font-serif text-3xl text-terracotta/25 leading-none group-hover:text-terracotta/40 transition-colors">
+                <span className="font-serif text-5xl sm:text-6xl text-terracotta/20 leading-none group-hover:text-terracotta/35 transition-colors">
                   {note.n}
                 </span>
-                <p className="mt-3 font-serif text-lg sm:text-xl text-forest leading-snug">
-                  &ldquo;{note.quote}&rdquo;
-                </p>
-                <footer className="mt-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-terracotta">
-                  <span className="h-px flex-1 bg-terracotta/25" />
-                  {note.who}
-                </footer>
+                <div className="mt-auto pt-8">
+                  <p className="font-serif text-xl sm:text-2xl text-forest leading-snug">
+                    &ldquo;{note.quote}&rdquo;
+                  </p>
+                  <footer className="mt-5 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-terracotta">
+                    <span className="h-px w-8 bg-terracotta/30" />
+                    {note.who}
+                  </footer>
+                </div>
               </motion.blockquote>
             ))}
           </div>
@@ -152,14 +178,16 @@ export function LandingUpper() {
             <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-xs font-semibold uppercase tracking-[0.22em] text-terracotta">
               Life at The Gables
             </motion.p>
-            <motion.h2 initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06, duration: 0.65, ease: easeOut }} className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-forest text-balance">
-              Real people. Real mall days.
+            <motion.h2 initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06, duration: 0.65, ease: easeOut }} className="font-serif text-4xl sm:text-5xl md:text-6xl font-medium text-forest text-balance leading-[1.05]">
+              Real people.
+              <br className="hidden sm:block" />
+              Real mall days.
             </motion.h2>
             <motion.p initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.12 }} className="max-w-md text-ink-muted">
               Bags, laughs, coffee, film — the everyday magic of showing up.
             </motion.p>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:grid-rows-2">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4 lg:grid-rows-2">
             {lifestyleShots.map((shot, i) => (
               <motion.figure
                 key={shot.caption}
@@ -198,7 +226,7 @@ export function LandingUpper() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: easeOut }}
-            className="grid grid-cols-2 gap-3 rounded-3xl border border-forest/10 bg-white/90 p-5 shadow-[0_12px_40px_rgba(15,46,31,0.10)] backdrop-blur-xl sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-forest/10 sm:p-6"
+            className="grid grid-cols-2 gap-3 rounded-[1.75rem] border border-forest/10 bg-white/95 p-6 shadow-[0_20px_60px_rgba(15,46,31,0.12)] backdrop-blur-xl sm:grid-cols-4 sm:gap-0 sm:divide-x sm:divide-forest/10 sm:p-8"
           >
             {[
               { icon: Store, label: '96+', sub: 'Brands & services' },
@@ -217,7 +245,7 @@ export function LandingUpper() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-terracotta/10 text-terracotta">
                   <item.icon className="h-[18px] w-[18px]" />
                 </div>
-                <p className="font-serif text-2xl sm:text-3xl font-medium text-forest leading-none">{item.label}</p>
+                <p className="font-serif text-3xl sm:text-4xl font-medium text-forest leading-none tracking-tight">{item.label}</p>
                 <p className="text-xs text-ink-muted">{item.sub}</p>
               </motion.div>
             ))}
@@ -232,8 +260,10 @@ export function LandingUpper() {
               <motion.p initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="section-eyebrow">
                 Directory
               </motion.p>
-              <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06, duration: 0.65, ease: easeOut }} className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-forest text-balance">
-                Where do you feel like going?
+              <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.06, duration: 0.65, ease: easeOut }} className="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl font-medium text-forest text-balance leading-[1.05]">
+                Where do you
+                <br className="hidden sm:block" />
+                feel like going?
               </motion.h2>
               <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.12, duration: 0.55 }} className="mt-3 max-w-md text-ink-muted leading-relaxed">
                 Fashion run, food court hang, movie night, or a quick beauty stop — pick a mood.
