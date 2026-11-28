@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 /**
- * Retail pin cursor — sharp terracotta diamond + soft lagging ring.
- * Feels like a map pin / wayfinding marker, not a design-studio blob.
+ * Retail pin cursor — terracotta diamond + lagging ring + outer pulse.
  * Hidden on touch and reduced-motion.
  */
 export function MagneticCursor() {
@@ -16,15 +15,17 @@ export function MagneticCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // Primary (snappy) spring for the diamond
-  const primary = { damping: 28, stiffness: 520, mass: 0.28 };
+  const primary = { damping: 26, stiffness: 560, mass: 0.22 };
   const x = useSpring(cursorX, primary);
   const y = useSpring(cursorY, primary);
 
-  // Softer lag spring for the outer ring
-  const lag = { damping: 22, stiffness: 180, mass: 0.55 };
+  const lag = { damping: 20, stiffness: 160, mass: 0.6 };
   const lagX = useSpring(cursorX, lag);
   const lagY = useSpring(cursorY, lag);
+
+  const outer = { damping: 18, stiffness: 90, mass: 0.8 };
+  const outerX = useSpring(cursorX, outer);
+  const outerY = useSpring(cursorY, outer);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia(
@@ -78,16 +79,32 @@ export function MagneticCursor() {
           body,
           a,
           button,
-          [role="button"],
-          input,
-          textarea,
-          select {
-            cursor: none;
+          [role="button"] {
+            cursor: none !important;
           }
         }
       `}</style>
 
-      {/* Lagging soft ring */}
+      <motion.div
+        className="pointer-events-none fixed left-0 top-0 z-[9997]"
+        style={{
+          x: outerX,
+          y: outerY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+      >
+        <motion.div
+          className="rounded-full border border-terracotta/20"
+          animate={{
+            width: hovering ? 72 : 48,
+            height: hovering ? 72 : 48,
+            opacity: hovering ? 0.5 : 0.25,
+          }}
+          transition={{ type: "spring", stiffness: 200, damping: 22 }}
+        />
+      </motion.div>
+
       <motion.div
         className="pointer-events-none fixed left-0 top-0 z-[9998]"
         style={{
@@ -98,20 +115,19 @@ export function MagneticCursor() {
         }}
       >
         <motion.div
-          className="rounded-full border border-terracotta/40"
+          className="rounded-full border border-terracotta/50"
           animate={{
-            width: hovering ? 52 : pressed ? 22 : 34,
-            height: hovering ? 52 : pressed ? 22 : 34,
-            opacity: hovering ? 0.9 : 0.45,
+            width: hovering ? 56 : pressed ? 24 : 36,
+            height: hovering ? 56 : pressed ? 24 : 36,
+            opacity: hovering ? 0.95 : 0.5,
             borderColor: hovering
-              ? "rgba(217, 95, 67, 0.7)"
-              : "rgba(217, 95, 67, 0.35)",
+              ? "rgba(217, 95, 67, 0.85)"
+              : "rgba(217, 95, 67, 0.4)",
           }}
           transition={{ type: "spring", stiffness: 280, damping: 24 }}
         />
       </motion.div>
 
-      {/* Sharp diamond / pin core */}
       <motion.div
         className="pointer-events-none fixed left-0 top-0 z-[9999]"
         style={{
@@ -124,22 +140,20 @@ export function MagneticCursor() {
         <motion.div
           className="relative flex items-center justify-center"
           animate={{
-            scale: pressed ? 0.75 : hovering ? 1.15 : 1,
+            scale: pressed ? 0.7 : hovering ? 1.25 : 1,
             rotate: hovering ? 45 : 0,
           }}
-          transition={{ type: "spring", stiffness: 420, damping: 22 }}
+          transition={{ type: "spring", stiffness: 440, damping: 20 }}
         >
-          {/* Diamond shape via rotated square */}
           <div
-            className="h-3 w-3 rotate-45 rounded-[2px] bg-terracotta shadow-[0_0_12px_rgba(217,95,67,0.55)]"
+            className="h-3.5 w-3.5 rotate-45 rounded-[2px] bg-terracotta"
             style={{
               boxShadow: hovering
-                ? "0 0 18px rgba(217,95,67,0.7)"
-                : "0 0 10px rgba(217,95,67,0.4)",
+                ? "0 0 22px rgba(217,95,67,0.85), 0 0 40px rgba(217,95,67,0.35)"
+                : "0 0 12px rgba(217,95,67,0.5)",
             }}
           />
-          {/* Tiny forest centre dot */}
-          <div className="absolute h-1 w-1 rounded-full bg-forest" />
+          <div className="absolute h-1.5 w-1.5 rounded-full bg-forest" />
         </motion.div>
       </motion.div>
     </>

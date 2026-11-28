@@ -2,12 +2,11 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAdmin } from '@/store/admin';
 import { mediaBySlot } from '@/lib/media/defaults';
 import { LandingBody } from '@/components/home/LandingBody';
-import { cn } from '@/lib/utils';
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 const words = ['Come', 'for', 'the', 'brands.'];
@@ -25,152 +24,163 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── HERO ───────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[88svh] sm:min-h-[92vh] flex items-center sm:items-end overflow-hidden">
+      <section className="relative min-h-[88svh] sm:min-h-[94vh] flex items-center sm:items-end overflow-hidden">
         <div className="absolute inset-0">
-          {videoSrc ? (
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={posterSrc}
-              className="h-full w-full object-cover scale-105"
-            >
-              <source src={videoSrc} type="video/mp4" />
-            </video>
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={posterSrc}
-              alt="Happy shoppers at The Gables"
-              className="h-full w-full object-cover scale-105"
-            />
-          )}
+          <motion.div
+            className="absolute inset-0"
+            initial={{ scale: 1.12 }}
+            animate={{ scale: 1.0 }}
+            transition={{ duration: 12, ease: 'easeOut' }}
+          >
+            {videoSrc ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={posterSrc}
+                className="h-full w-full object-cover"
+              >
+                <source src={videoSrc} type="video/mp4" />
+              </video>
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={posterSrc}
+                alt="Happy shoppers at The Gables"
+                className="h-full w-full object-cover"
+              />
+            )}
+          </motion.div>
           <div className="absolute inset-0 bg-forest/55 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/45 to-transparent" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-terracotta/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/50 to-forest/10" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-terracotta/35 via-transparent to-transparent" />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay noise-overlay"
+          />
         </div>
 
-        {/* Floating orbs */}
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute right-[8%] top-[20%] z-[5] hidden h-28 w-28 rounded-full border border-white/20 bg-white/5 backdrop-blur-md sm:block"
-          animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+          className="pointer-events-none absolute right-[6%] top-[18%] z-[5] hidden h-32 w-32 rounded-full border border-white/20 bg-white/5 backdrop-blur-md sm:block"
+          animate={{ y: [0, -24, 0], rotate: [0, 12, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute left-[5%] top-[36%] z-[5] hidden h-16 w-16 rounded-full bg-terracotta/35 blur-sm sm:block"
-          animate={{ y: [0, 16, 0], scale: [1, 1.12, 1] }}
-          transition={{ duration: 5.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="pointer-events-none absolute left-[10%] bottom-[28%] z-[5] hidden h-16 w-16 rounded-full bg-terracotta/50 blur-md sm:block"
+          animate={{ y: [0, 16, 0], scale: [1, 1.15, 1] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         />
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute bottom-[26%] right-[16%] z-[5] hidden h-12 w-12 rounded-full border-2 border-sand/35 sm:block"
+          className="pointer-events-none absolute right-[22%] bottom-[18%] z-[5] hidden h-10 w-10 rounded-full border border-sand/30 sm:block"
           animate={{ y: [0, -12, 0], x: [0, 8, 0] }}
-          transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-14 sm:pb-16 sm:pt-32 text-white">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:pb-20 sm:pt-36">
           <motion.div
-            initial={{ opacity: 0, y: 18, scale: 0.94 }}
+            initial={{ opacity: 0, y: 12, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.55, ease: easeOut }}
-            className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/12 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-sand backdrop-blur-md shadow-lg shadow-black/15"
+            transition={{ duration: 0.5, ease: easeOut }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-sand backdrop-blur-md"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-terracotta opacity-80" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-terracotta" />
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
             </span>
-            Open today · Ezulwini Valley
+            Open today · Ezulwini
           </motion.div>
 
-          <h1 className="max-w-4xl font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight overflow-hidden">
-            {words.map((word, i) => (
-              <motion.span
-                key={`w1-${word}`}
-                initial={{ opacity: 0, y: '120%', rotate: -4 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                transition={{ delay: 0.1 + i * 0.1, duration: 0.85, ease: easeOut }}
-                className="inline-block mr-[0.22em]"
-              >
-                {word}
-              </motion.span>
-            ))}
-            <br />
-            {words2.map((word, i) => (
-              <motion.span
-                key={`w2-${word}`}
-                initial={{ opacity: 0, y: '120%', rotate: 3 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                transition={{ delay: 0.52 + i * 0.1, duration: 0.85, ease: easeOut }}
-                className={cn(
-                  'inline-block mr-[0.22em]',
-                  word === 'vibe.' && 'text-sand italic'
-                )}
-              >
-                {word}
-              </motion.span>
-            ))}
+          <h1 className="mt-6 max-w-4xl font-serif text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight text-white">
+            <span className="block overflow-hidden">
+              {words.map((w, i) => (
+                <motion.span
+                  key={`a-${w}`}
+                  initial={{ opacity: 0, y: '110%', rotate: 4 }}
+                  animate={{ opacity: 1, y: 0, rotate: 0 }}
+                  transition={{
+                    delay: 0.12 + i * 0.08,
+                    duration: 0.85,
+                    ease: easeOut,
+                  }}
+                  className="inline-block mr-[0.22em]"
+                >
+                  {w}
+                </motion.span>
+              ))}
+            </span>
+            <span className="block overflow-hidden mt-1 sm:mt-2 text-sand/90 italic">
+              {words2.map((w, i) => (
+                <motion.span
+                  key={`b-${w}`}
+                  initial={{ opacity: 0, y: '110%', rotate: -3 }}
+                  animate={{ opacity: 1, y: 0, rotate: 0 }}
+                  transition={{
+                    delay: 0.48 + i * 0.09,
+                    duration: 0.85,
+                    ease: easeOut,
+                  }}
+                  className="inline-block mr-[0.22em]"
+                >
+                  {w}
+                </motion.span>
+              ))}
+            </span>
           </h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.98, duration: 0.7, ease: easeOut }}
-            className="mt-7 max-w-xl text-base sm:text-lg text-white/90 leading-relaxed"
+            transition={{ delay: 0.95, duration: 0.65, ease: easeOut }}
+            className="mt-6 max-w-lg text-base sm:text-lg text-white/85 leading-relaxed"
           >
-            96+ brands, free parking, cinema, banking and courtyard dining — the
-            happy heart of Ezulwini under the African sun.
+            96+ brands, open-air courts and free parking in the heart of the
+            Ezulwini Valley — the mall people actually want to go to.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.12, duration: 0.65, ease: easeOut }}
-            className="mt-9 flex flex-wrap items-center gap-3 sm:gap-4"
+            transition={{ delay: 1.1, duration: 0.55, ease: easeOut }}
+            className="mt-8 flex flex-wrap items-center gap-3"
           >
             <Button
               asChild
               size="lg"
               variant="terracotta"
-              className="gap-2 rounded-full btn-lift shadow-lg shadow-terracotta/30"
+              className="rounded-full gap-2 btn-lift shadow-lg shadow-terracotta/30"
             >
               <Link href="/directory">
-                Explore the mall <ArrowRight className="h-4 w-4" />
+                Explore the directory <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="rounded-full border-white/35 bg-white/12 text-white hover:bg-white/20 hover:text-white backdrop-blur-md"
+              className="rounded-full border-white/30 bg-white/5 text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
             >
-              <Link href="/events">What's on today</Link>
+              <Link href="/events">What&apos;s on</Link>
             </Button>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.32, duration: 0.55, ease: easeOut }}
-            className="mt-10 flex flex-wrap gap-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.35, duration: 0.6 }}
+            className="mt-10 flex flex-wrap gap-2 sm:gap-3"
           >
-            {['96+ brands', 'Free parking', 'Movie Zone', 'Food court', 'Banking', 'Open-air'].map(
+            {['Free parking', '96+ brands', 'Movie Zone', '24hr security'].map(
               (chip, i) => (
                 <motion.span
                   key={chip}
-                  initial={{ opacity: 0, scale: 0.7, y: 12 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{
-                    delay: 1.38 + i * 0.07,
-                    type: 'spring',
-                    stiffness: 260,
-                    damping: 14,
-                  }}
-                  whileHover={{ scale: 1.06, y: -2 }}
-                  className="cursor-default rounded-full border border-white/25 bg-white/12 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-sand backdrop-blur-md"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.4 + i * 0.07 }}
+                  className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/90 backdrop-blur-sm"
                 >
                   {chip}
                 </motion.span>
@@ -178,6 +188,23 @@ export default function HomePage() {
             )}
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.8 }}
+          className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 hidden sm:flex flex-col items-center gap-1 text-white/60"
+        >
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em]">
+            Scroll
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ChevronDown className="h-5 w-5" />
+          </motion.div>
+        </motion.div>
       </section>
 
       <LandingBody />
