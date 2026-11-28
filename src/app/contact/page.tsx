@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
+import { MapPin, Phone, Mail, Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useAdmin } from "@/store/admin";
 
 const schema = z.object({
   name: z.string().min(2, "Please enter your name"),
@@ -27,9 +27,12 @@ const subjects = [
   { value: "other", label: "Other" },
 ] as const;
 
+const easeOut = [0.16, 1, 0.3, 1] as const;
+
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const addMessage = useAdmin((s) => s.addMessage);
 
   const {
     register,
@@ -50,8 +53,15 @@ export default function ContactPage() {
         body: JSON.stringify(data),
       });
     } catch {
-      // Demo UX: still show success if offline
+      /* demo: still succeed offline */
     }
+    addMessage({
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      subject: data.subject,
+      message: data.message,
+    });
     setSending(false);
     setSubmitted(true);
     reset();
@@ -59,25 +69,54 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-sand">
-      <section className="border-b border-forest/10 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-ink-muted">
+      <section className="relative min-h-[42vh] flex items-end overflow-hidden">
+        <div className="absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80"
+            alt=""
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-forest/70 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/50 to-transparent" />
+        </div>
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pb-12 pt-28 text-white">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-xs font-semibold uppercase tracking-[0.22em] text-terracotta"
+          >
             Get in touch
-          </p>
-          <h1 className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-forest tracking-tight">
-            Contact the centre
+          </motion.p>
+          <h1 className="mt-3 max-w-2xl font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight overflow-hidden">
+            {["Contact", "the", "centre"].map((w, i) => (
+              <motion.span
+                key={w}
+                initial={{ opacity: 0, y: "110%" }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.1, duration: 0.7, ease: easeOut }}
+                className="inline-block mr-[0.22em]"
+              >
+                {w}
+              </motion.span>
+            ))}
           </h1>
-          <p className="mt-3 max-w-2xl text-ink-muted leading-relaxed">
-            Questions about stores, events, leasing or a group visit? Send a
-            message and the team will respond during centre hours.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45 }}
+            className="mt-4 max-w-lg text-white/85 leading-relaxed"
+          >
+            Stores, events, leasing or a group visit — send a note and the team
+            responds during centre hours.
+          </motion.p>
         </div>
       </section>
 
       <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-5">
-            <div className="lg:col-span-2 space-y-5">
+            <div className="lg:col-span-2 space-y-4">
               {[
                 {
                   icon: MapPin,
@@ -96,20 +135,27 @@ export default function ContactPage() {
                   body: "info@thegables.co.sz",
                   href: "mailto:info@thegables.co.sz",
                 },
-              ].map((item) => (
-                <div
+              ].map((item, i) => (
+                <motion.div
                   key={item.title}
-                  className="flex gap-4 rounded-xl border border-forest/10 bg-white p-5"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                  className="flex gap-4 rounded-2xl border border-forest/10 bg-white p-5 shadow-sm hover:shadow-glass transition-shadow"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest/5 text-forest">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-terracotta/10 text-terracotta">
                     <item.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-forest">{item.title}</h3>
+                    <h3 className="font-serif text-lg font-medium text-forest">
+                      {item.title}
+                    </h3>
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="mt-0.5 text-sm text-ink-muted hover:text-terracotta whitespace-pre-line"
+                        className="mt-0.5 text-sm text-ink-muted hover:text-terracotta whitespace-pre-line transition-colors"
                       >
                         {item.body}
                       </a>
@@ -119,28 +165,28 @@ export default function ContactPage() {
                       </p>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             <div className="lg:col-span-3">
               {submitted ? (
                 <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="rounded-2xl border border-forest/10 bg-white p-10 text-center"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="rounded-2xl border border-forest/10 bg-white p-10 sm:p-12 text-center shadow-sm"
                 >
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-forest text-white">
-                    <Check className="h-7 w-7" />
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-forest text-white">
+                    <Check className="h-8 w-8" />
                   </div>
-                  <h2 className="mt-4 font-serif text-2xl font-medium text-forest">
+                  <h2 className="mt-5 font-serif text-2xl sm:text-3xl font-medium text-forest">
                     Message sent
                   </h2>
-                  <p className="mt-2 text-ink-muted">
+                  <p className="mt-2 text-ink-muted max-w-sm mx-auto">
                     Thank you. We will get back to you during centre hours.
                   </p>
                   <Button
-                    className="mt-6"
+                    className="mt-8 rounded-full"
                     variant="outline"
                     onClick={() => setSubmitted(false)}
                   >
@@ -148,81 +194,60 @@ export default function ContactPage() {
                   </Button>
                 </motion.div>
               ) : (
-                <form
+                <motion.form
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
                   onSubmit={handleSubmit(onSubmit)}
-                  className="rounded-2xl border border-forest/10 bg-white p-6 sm:p-8 space-y-5"
+                  className="rounded-2xl border border-forest/10 bg-white p-6 sm:p-8 shadow-sm space-y-5"
                 >
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-forest"
-                      >
+                      <label className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                         Name
                       </label>
                       <input
-                        id="name"
                         {...register("name")}
-                        className={cn(
-                          "mt-1.5 w-full rounded-lg border bg-sand/50 px-3 py-2.5 text-sm text-forest focus:outline-none focus:ring-2 focus:ring-terracotta/30",
-                          errors.name ? "border-red-400" : "border-forest/15"
-                        )}
+                        className="mt-1.5 w-full rounded-xl border border-forest/15 bg-sand/40 px-3.5 py-2.5 text-sm text-forest focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30"
                       />
                       {errors.name && (
-                        <p className="mt-1 text-xs text-red-600">
+                        <p className="mt-1 text-xs text-terracotta">
                           {errors.name.message}
                         </p>
                       )}
                     </div>
                     <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-forest"
-                      >
+                      <label className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                         Email
                       </label>
                       <input
-                        id="email"
                         type="email"
                         {...register("email")}
-                        className={cn(
-                          "mt-1.5 w-full rounded-lg border bg-sand/50 px-3 py-2.5 text-sm text-forest focus:outline-none focus:ring-2 focus:ring-terracotta/30",
-                          errors.email ? "border-red-400" : "border-forest/15"
-                        )}
+                        className="mt-1.5 w-full rounded-xl border border-forest/15 bg-sand/40 px-3.5 py-2.5 text-sm text-forest focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30"
                       />
                       {errors.email && (
-                        <p className="mt-1 text-xs text-red-600">
+                        <p className="mt-1 text-xs text-terracotta">
                           {errors.email.message}
                         </p>
                       )}
                     </div>
                   </div>
-
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium text-forest"
-                      >
-                        Phone (optional)
+                      <label className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
+                        Phone
                       </label>
                       <input
-                        id="phone"
                         {...register("phone")}
-                        className="mt-1.5 w-full rounded-lg border border-forest/15 bg-sand/50 px-3 py-2.5 text-sm text-forest focus:outline-none focus:ring-2 focus:ring-terracotta/30"
+                        className="mt-1.5 w-full rounded-xl border border-forest/15 bg-sand/40 px-3.5 py-2.5 text-sm text-forest focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30"
                       />
                     </div>
                     <div>
-                      <label
-                        htmlFor="subject"
-                        className="block text-sm font-medium text-forest"
-                      >
+                      <label className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                         Subject
                       </label>
                       <select
-                        id="subject"
                         {...register("subject")}
-                        className="mt-1.5 w-full rounded-lg border border-forest/15 bg-sand/50 px-3 py-2.5 text-sm text-forest focus:outline-none focus:ring-2 focus:ring-terracotta/30"
+                        className="mt-1.5 w-full rounded-xl border border-forest/15 bg-sand/40 px-3.5 py-2.5 text-sm text-forest focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30"
                       >
                         {subjects.map((s) => (
                           <option key={s.value} value={s.value}>
@@ -232,40 +257,32 @@ export default function ContactPage() {
                       </select>
                     </div>
                   </div>
-
                   <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-forest"
-                    >
+                    <label className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                       Message
                     </label>
                     <textarea
-                      id="message"
-                      rows={5}
                       {...register("message")}
-                      className={cn(
-                        "mt-1.5 w-full rounded-lg border bg-sand/50 px-3 py-2.5 text-sm text-forest focus:outline-none focus:ring-2 focus:ring-terracotta/30 resize-y",
-                        errors.message ? "border-red-400" : "border-forest/15"
-                      )}
+                      rows={5}
+                      className="mt-1.5 w-full rounded-xl border border-forest/15 bg-sand/40 px-3.5 py-2.5 text-sm text-forest focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-terracotta/30 resize-y"
                     />
                     {errors.message && (
-                      <p className="mt-1 text-xs text-red-600">
+                      <p className="mt-1 text-xs text-terracotta">
                         {errors.message.message}
                       </p>
                     )}
                   </div>
-
                   <Button
                     type="submit"
                     variant="terracotta"
+                    size="lg"
                     disabled={sending}
-                    className="w-full sm:w-auto gap-2"
+                    className="rounded-full gap-2 btn-lift w-full sm:w-auto"
                   >
-                    <Send className="h-4 w-4" />
                     {sending ? "Sending…" : "Send message"}
+                    <ArrowRight className="h-4 w-4" />
                   </Button>
-                </form>
+                </motion.form>
               )}
             </div>
           </div>
