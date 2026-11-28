@@ -4,17 +4,17 @@
 
 @layer base {
   :root {
-    --background: 40 33% 94%;
-    --foreground: 30 12% 9%;
+    --background: 40 33% 94%; /* sand */
+    --foreground: 30 12% 9%; /* ink */
     --card: 0 0% 100%;
     --card-foreground: 30 12% 9%;
-    --primary: 152 50% 12%;
+    --primary: 152 50% 12%; /* forest */
     --primary-foreground: 40 33% 96%;
     --secondary: 40 25% 90%;
     --secondary-foreground: 30 12% 9%;
     --muted: 40 20% 92%;
     --muted-foreground: 30 8% 40%;
-    --accent: 12 65% 55%;
+    --accent: 12 65% 55%; /* terracotta */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
@@ -23,31 +23,78 @@
     --ring: 152 50% 12%;
     --radius: 0.625rem;
   }
+
+  .dark {
+    /* Near-black forest base — strong contrast against sand text */
+    --background: 152 55% 5%;
+    --foreground: 40 33% 96%;
+    --card: 152 40% 9%;
+    --card-foreground: 40 33% 96%;
+    --primary: 40 33% 96%;
+    --primary-foreground: 152 55% 8%;
+    --secondary: 152 30% 12%;
+    --secondary-foreground: 40 33% 96%;
+    --muted: 152 25% 12%;
+    --muted-foreground: 40 15% 78%;
+    --accent: 12 70% 58%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 152 20% 22%;
+    --input: 152 20% 16%;
+    --ring: 12 70% 58%;
+  }
 }
 
 @layer base {
-  * { @apply border-border; }
-  body { @apply bg-background text-foreground font-sans antialiased; }
-  h1, h2, h3, h4, h5, h6 { @apply font-serif tracking-tight; }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif tracking-tight;
+  }
 }
 
-html { scroll-behavior: smooth; }
+/* Smooth scrolling base (Lenis will enhance) */
+html {
+  scroll-behavior: smooth;
+}
 
+/* Glassmorphism utilities */
 @layer utilities {
-  .glass { @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-glass; }
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-glass;
+  }
   .glass-dark {
     @apply backdrop-blur-xl border border-white/10 shadow-glass;
     background-color: rgb(15 46 31 / 0.8);
   }
-  .text-balance { text-wrap: balance; }
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
+/* Focus visible for a11y */
 :focus-visible {
   @apply outline-none ring-2 ring-terracotta ring-offset-2 ring-offset-background;
 }
 
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { @apply bg-sand; }
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-sand;
+}
 ::-webkit-scrollbar-thumb {
   @apply rounded-full;
   background-color: rgb(15 46 31 / 0.3);
@@ -56,17 +103,210 @@ html { scroll-behavior: smooth; }
   background-color: rgb(15 46 31 / 0.5);
 }
 
-html.high-contrast {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 0%;
+/* Dark mode is driven by html.dark — see strong contrast block below */
+
+/* Lenis recommended */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
-html.high-contrast body { background: #fff !important; color: #000 !important; }
 
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
 
-.leaflet-container { background: #F3EFE6; font-family: inherit; }
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
 
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Leaflet overrides for brand map */
+.leaflet-container {
+  background: #F3EFE6;
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px rgba(15, 46, 31, 0.12);
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px;
+  font-size: 0.875rem;
+}
+
+/* ── Dark mode — strong contrast brand surfaces ───────────────────────── */
+.dark body {
+  background-color: #06140e !important;
+  color: #faf7f2 !important;
+}
+
+.dark .bg-sand,
+.dark .bg-sand\/40,
+.dark .bg-sand\/50,
+.dark .bg-sand\/60 {
+  background-color: #0a1f15 !important;
+}
+
+.dark .bg-sand\/85 {
+  background-color: rgba(10, 31, 21, 0.92) !important;
+}
+
+.dark .bg-white {
+  background-color: #0f2e1f !important;
+}
+
+.dark .bg-white\/5,
+.dark .bg-white\/8,
+.dark .bg-white\/10,
+.dark .bg-white\/12 {
+  background-color: rgba(243, 239, 230, 0.08) !important;
+}
+
+.dark .text-forest {
+  color: #faf7f2 !important;
+}
+
+.dark .text-ink,
+.dark .text-ink\/65,
+.dark .text-ink\/80 {
+  color: #f3efe6 !important;
+}
+
+.dark .text-ink-muted {
+  color: rgba(250, 247, 242, 0.78) !important;
+}
+
+.dark .border-forest\/8,
+.dark .border-forest\/10,
+.dark .border-forest\/15,
+.dark .border-forest\/20 {
+  border-color: rgba(243, 239, 230, 0.16) !important;
+}
+
+.dark .ring-forest\/5 {
+  --tw-ring-color: rgba(243, 239, 230, 0.12) !important;
+}
+
+.dark .glass {
+  background: rgba(10, 31, 21, 0.88);
+  border-color: rgba(243, 239, 230, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.dark .nav-glass {
+  background: rgba(10, 31, 21, 0.9);
+  border-bottom-color: rgba(243, 239, 230, 0.1);
+}
+
+.dark .section-eyebrow {
+  color: #e37b66 !important;
+}
+
+.dark .premium-card {
+  background-color: #0f2e1f !important;
+  border-color: rgba(243, 239, 230, 0.14) !important;
+}
+
+.dark .shadow-glass,
+.dark .shadow-glass-sm {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #06140e;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(243, 239, 230, 0.28);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(243, 239, 230, 0.45);
+}
+
+.dark .leaflet-container {
+  background: #0a1f15;
+}
+
+/* Navbar floating pill in dark */
+.dark header .border-forest\/10 {
+  border-color: rgba(243, 239, 230, 0.14) !important;
+}
+
+/* Form inputs / directory search */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #0a1f15 !important;
+  color: #faf7f2 !important;
+  border-color: rgba(243, 239, 230, 0.2) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: rgba(250, 247, 242, 0.45) !important;
+}
+
+/* Outline buttons remain legible */
+.dark button.border-forest\/10,
+.dark a.border-forest\/10 {
+  border-color: rgba(243, 239, 230, 0.2) !important;
+}
+
+/* Animated map pins */
+.gables-pin-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+.gables-pin {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: gables-pin-enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.gables-pin-dot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #0F2E1F;
+  color: #F3EFE6;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(15, 46, 31, 0.35);
+}
+.gables-pin-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid #D95F43;
+  animation: pin-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes gables-pin-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Admin shell */
 .admin-shell {
   min-height: 100vh;
   background: linear-gradient(160deg, #0a1f15 0%, #0F2E1F 40%, #1a3d2a 100%);
@@ -77,18 +317,38 @@ html.lenis, html.lenis body { height: auto; }
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
+/* ── Seasonal themes (data-theme on <html>) ── */
 html[data-theme="christmas"] body {
   background-image: radial-gradient(ellipse at top right, rgba(139, 30, 45, 0.08), transparent 50%);
 }
-html[data-theme="valentine"] .bg-terracotta { background-color: #C45B7A !important; }
-html[data-theme="valentine"] .text-terracotta { color: #C45B7A !important; }
-html[data-theme="halloween"] .bg-terracotta { background-color: #E07A2F !important; }
-html[data-theme="halloween"] .text-terracotta { color: #E07A2F !important; }
-html[data-theme="independence"] .bg-terracotta { background-color: #C8102E !important; }
-html[data-theme="independence"] .bg-forest { background-color: #0033A0 !important; }
-html[data-theme="umhlanga"] .bg-terracotta { background-color: #C4A35A !important; color: #1A1714 !important; }
-html[data-theme="buganu"] .bg-terracotta { background-color: #5C8A3D !important; }
-html[data-theme="easter"] .bg-terracotta { background-color: #7BA38A !important; }
+html[data-theme="valentine"] .bg-terracotta {
+  background-color: #c45b7a !important;
+}
+html[data-theme="valentine"] .text-terracotta {
+  color: #c45b7a !important;
+}
+html[data-theme="halloween"] .bg-terracotta {
+  background-color: #e07a2f !important;
+}
+html[data-theme="halloween"] .text-terracotta {
+  color: #e07a2f !important;
+}
+html[data-theme="independence"] .bg-terracotta {
+  background-color: #c8102e !important;
+}
+html[data-theme="independence"] .bg-forest {
+  background-color: #0033a0 !important;
+}
+html[data-theme="umhlanga"] .bg-terracotta {
+  background-color: #c4a35a !important;
+  color: #1a1714 !important;
+}
+html[data-theme="buganu"] .bg-terracotta {
+  background-color: #5c8a3d !important;
+}
+html[data-theme="easter"] .bg-terracotta {
+  background-color: #7ba38a !important;
+}
 
 .noise-overlay {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
@@ -118,20 +378,45 @@ html[data-theme="easter"] .bg-terracotta { background-color: #7BA38A !important;
   box-shadow: 0 8px 24px rgba(15, 46, 31, 0.18);
 }
 
+/* Glass navbar polish */
+.nav-glass {
+  background: rgba(243, 239, 230, 0.78);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(15, 46, 31, 0.06);
+}
+
+/* Map pin pulse */
 @keyframes pin-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.35); opacity: 0.55; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.55;
+  }
 }
 .map-pin-pulse {
   animation: pin-pulse 2.2s ease-in-out infinite;
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 ::selection {
   background: rgba(217, 95, 67, 0.22);
-  color: #1A1714;
+  color: #1a1714;
+}
+
+.dark ::selection {
+  background: rgba(217, 95, 67, 0.4);
+  color: #faf7f2;
 }
