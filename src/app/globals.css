@@ -4,17 +4,17 @@
 
 @layer base {
   :root {
-    --background: 40 33% 94%; /* sand */
-    --foreground: 30 12% 9%; /* ink */
+    --background: 40 33% 94%;
+    --foreground: 30 12% 9%;
     --card: 0 0% 100%;
     --card-foreground: 30 12% 9%;
-    --primary: 152 50% 12%; /* forest */
+    --primary: 152 50% 12%;
     --primary-foreground: 40 33% 96%;
     --secondary: 40 25% 90%;
     --secondary-foreground: 30 12% 9%;
     --muted: 40 20% 92%;
     --muted-foreground: 30 8% 40%;
-    --accent: 12 65% 55%; /* terracotta */
+    --accent: 12 65% 55%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
@@ -25,7 +25,6 @@
   }
 
   .dark {
-    /* Near-black forest base — strong contrast against sand text */
     --background: 152 55% 5%;
     --foreground: 40 33% 96%;
     --card: 152 40% 9%;
@@ -63,12 +62,10 @@
   }
 }
 
-/* Smooth scrolling base (Lenis will enhance) */
 html {
   scroll-behavior: smooth;
 }
 
-/* Glassmorphism utilities */
 @layer utilities {
   .glass {
     @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-glass;
@@ -82,12 +79,10 @@ html {
   }
 }
 
-/* Focus visible for a11y */
 :focus-visible {
   @apply outline-none ring-2 ring-terracotta ring-offset-2 ring-offset-background;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -103,29 +98,22 @@ html {
   background-color: rgb(15 46 31 / 0.5);
 }
 
-/* Dark mode is driven by html.dark — see strong contrast block below */
-
-/* Lenis recommended */
 html.lenis,
 html.lenis body {
   height: auto;
 }
-
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
-
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
-
 .lenis.lenis-stopped {
   overflow: hidden;
 }
 
-/* Leaflet overrides for brand map */
 .leaflet-container {
-  background: #F3EFE6;
+  background: #f3efe6;
   font-family: inherit;
 }
 
@@ -139,106 +127,47 @@ html.lenis body {
   font-size: 0.875rem;
 }
 
-/* ── Dark mode — strong contrast brand surfaces ───────────────────────── */
+/* Dark mode strong contrast */
 .dark body {
   background-color: #06140e !important;
   color: #faf7f2 !important;
 }
-
 .dark .bg-sand,
 .dark .bg-sand\/40,
 .dark .bg-sand\/50,
 .dark .bg-sand\/60 {
   background-color: #0a1f15 !important;
 }
-
 .dark .bg-sand\/85 {
   background-color: rgba(10, 31, 21, 0.92) !important;
 }
-
 .dark .bg-white {
   background-color: #0f2e1f !important;
 }
-
-.dark .bg-white\/5,
-.dark .bg-white\/8,
-.dark .bg-white\/10,
-.dark .bg-white\/12 {
-  background-color: rgba(243, 239, 230, 0.08) !important;
-}
-
 .dark .text-forest {
   color: #faf7f2 !important;
 }
-
-.dark .text-ink,
-.dark .text-ink\/65,
-.dark .text-ink\/80 {
-  color: #f3efe6 !important;
-}
-
 .dark .text-ink-muted {
   color: rgba(250, 247, 242, 0.78) !important;
 }
-
 .dark .border-forest\/8,
 .dark .border-forest\/10,
 .dark .border-forest\/15,
 .dark .border-forest\/20 {
   border-color: rgba(243, 239, 230, 0.16) !important;
 }
-
-.dark .ring-forest\/5 {
-  --tw-ring-color: rgba(243, 239, 230, 0.12) !important;
-}
-
 .dark .glass {
   background: rgba(10, 31, 21, 0.88);
   border-color: rgba(243, 239, 230, 0.14);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
 }
-
-.dark .nav-glass {
-  background: rgba(10, 31, 21, 0.9);
-  border-bottom-color: rgba(243, 239, 230, 0.1);
-}
-
-.dark .section-eyebrow {
-  color: #e37b66 !important;
-}
-
 .dark .premium-card {
   background-color: #0f2e1f !important;
   border-color: rgba(243, 239, 230, 0.14) !important;
 }
-
-.dark .shadow-glass,
-.dark .shadow-glass-sm {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4) !important;
+.dark .section-eyebrow {
+  color: #e37b66 !important;
 }
-
-.dark ::-webkit-scrollbar-track {
-  background: #06140e;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background-color: rgba(243, 239, 230, 0.28);
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(243, 239, 230, 0.45);
-}
-
-.dark .leaflet-container {
-  background: #0a1f15;
-}
-
-/* Navbar floating pill in dark */
-.dark header .border-forest\/10 {
-  border-color: rgba(243, 239, 230, 0.14) !important;
-}
-
-/* Form inputs / directory search */
 .dark input,
 .dark textarea,
 .dark select {
@@ -247,69 +176,9 @@ html.lenis body {
   border-color: rgba(243, 239, 230, 0.2) !important;
 }
 
-.dark input::placeholder,
-.dark textarea::placeholder {
-  color: rgba(250, 247, 242, 0.45) !important;
-}
-
-/* Outline buttons remain legible */
-.dark button.border-forest\/10,
-.dark a.border-forest\/10 {
-  border-color: rgba(243, 239, 230, 0.2) !important;
-}
-
-/* Animated map pins */
-.gables-pin-wrap {
-  background: transparent !important;
-  border: none !important;
-}
-.gables-pin {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: gables-pin-enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.gables-pin-dot {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 9999px;
-  background: #0F2E1F;
-  color: #F3EFE6;
-  font-size: 11px;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba(15, 46, 31, 0.35);
-}
-.gables-pin-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  border: 2px solid #D95F43;
-  animation: pin-pulse 2.2s ease-in-out infinite;
-}
-
-@keyframes gables-pin-enter {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Admin shell */
 .admin-shell {
   min-height: 100vh;
-  background: linear-gradient(160deg, #0a1f15 0%, #0F2E1F 40%, #1a3d2a 100%);
+  background: linear-gradient(160deg, #0a1f15 0%, #0f2e1f 40%, #1a3d2a 100%);
 }
 .admin-panel {
   background: rgba(243, 239, 230, 0.97);
@@ -317,7 +186,6 @@ html.lenis body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
-/* ── Seasonal themes (data-theme on <html>) ── */
 html[data-theme="christmas"] body {
   background-image: radial-gradient(ellipse at top right, rgba(139, 30, 45, 0.08), transparent 50%);
 }
@@ -374,11 +242,13 @@ html[data-theme="easter"] .bg-terracotta {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
 }
 .btn-lift:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(15, 46, 31, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 46, 31, 0.22);
+}
+.dark .btn-lift:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
 }
 
-/* Glass navbar polish */
 .nav-glass {
   background: rgba(243, 239, 230, 0.78);
   backdrop-filter: blur(20px) saturate(1.4);
@@ -386,7 +256,6 @@ html[data-theme="easter"] .bg-terracotta {
   border-bottom: 1px solid rgba(15, 46, 31, 0.06);
 }
 
-/* Map pin pulse */
 @keyframes pin-pulse {
   0%,
   100% {
@@ -415,8 +284,32 @@ html[data-theme="easter"] .bg-terracotta {
   background: rgba(217, 95, 67, 0.22);
   color: #1a1714;
 }
-
 .dark ::selection {
   background: rgba(217, 95, 67, 0.4);
   color: #faf7f2;
+}
+
+/* Max design energy */
+@keyframes hero-kenburns {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.hero-media-kenburns {
+  animation: hero-kenburns 14s ease-out forwards;
+}
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+.float-soft {
+  animation: float-soft 7s ease-in-out infinite;
 }
