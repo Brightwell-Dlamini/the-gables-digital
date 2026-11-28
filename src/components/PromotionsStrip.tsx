@@ -20,7 +20,7 @@ export function PromotionsStrip() {
   const featured = promotions.filter((p) => p.featured);
 
   return (
-    <section className="relative py-16 sm:py-24 bg-sand overflow-hidden">
+    <section className="relative py-24 sm:py-32 bg-sand overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute -right-16 top-0 h-56 w-56 rounded-full bg-terracotta/15 blur-3xl"
@@ -47,7 +47,7 @@ export function PromotionsStrip() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.06, duration: 0.65, ease: easeOut }}
-              className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-forest tracking-tight"
+              className="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl font-medium text-forest tracking-tight leading-[1.05]"
             >
               Deals, drops & moments
             </motion.h2>
