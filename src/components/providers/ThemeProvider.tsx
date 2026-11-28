@@ -6,7 +6,7 @@ import { useAdmin } from "@/store/admin";
 import { resolveThemeForDate } from "@/lib/themes/seasonal";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const highContrast = useUI((s) => s.highContrast);
+  const darkMode = useUI((s) => s.darkMode);
   const themeSettings = useAdmin((s) => s.settings.theme);
 
   const activeTheme = useMemo(() => {
@@ -20,14 +20,22 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (highContrast) {
-      root.classList.add("high-contrast");
+
+    // Dark mode
+    if (darkMode) {
+      root.classList.add("dark");
+      root.style.colorScheme = "dark";
     } else {
-      root.classList.remove("high-contrast");
+      root.classList.remove("dark");
+      root.style.colorScheme = "light";
     }
-    root.classList.remove("dark");
+
+    // Clear legacy high-contrast class if present
+    root.classList.remove("high-contrast");
+
+    // Seasonal theme via data attribute
     root.setAttribute("data-theme", activeTheme);
-  }, [highContrast, activeTheme]);
+  }, [darkMode, activeTheme]);
 
   return <>{children}</>;
 }

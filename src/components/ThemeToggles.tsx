@@ -1,35 +1,34 @@
 "use client";
 
-import { Contrast } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useUI } from "@/store/ui";
 import { cn } from "@/lib/utils";
 
 /**
- * Single accessibility control: high-contrast mode only.
+ * Dark mode toggle — strong contrast light/dark switch.
  */
 export function ThemeToggles() {
-  const { highContrast, toggleHighContrast } = useUI();
+  const { darkMode, toggleDarkMode } = useUI();
 
   return (
     <button
       type="button"
-      onClick={toggleHighContrast}
+      onClick={toggleDarkMode}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-medium transition-colors",
-        highContrast
-          ? "bg-forest text-white"
+        "inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors",
+        darkMode
+          ? "bg-sand/15 text-sand hover:bg-sand/25"
           : "text-forest/70 hover:bg-forest/5 hover:text-forest"
       )}
-      aria-pressed={highContrast}
-      aria-label={
-        highContrast
-          ? "Disable high contrast mode"
-          : "Enable high contrast mode"
-      }
-      title="High contrast"
+      aria-pressed={darkMode}
+      aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      title={darkMode ? "Light mode" : "Dark mode"}
     >
-      <Contrast className="h-3.5 w-3.5" />
-      <span className="hidden sm:inline">Contrast</span>
+      {darkMode ? (
+        <Sun className="h-4 w-4" strokeWidth={2.25} />
+      ) : (
+        <Moon className="h-4 w-4" strokeWidth={2.25} />
+      )}
     </button>
   );
 }
