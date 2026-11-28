@@ -75,7 +75,7 @@ export function TodayBoard() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.06, duration: 0.65, ease: easeOut }}
-              className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight"
+              className="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight leading-[1.05]"
             >
               Today at The Gables
             </motion.h2>
@@ -127,7 +127,7 @@ export function TodayBoard() {
                 Hours
               </span>
             </div>
-            <p className="mt-4 font-serif text-2xl leading-snug">
+            <p className="mt-4 font-serif text-2xl sm:text-3xl leading-snug">
               {isOpen ? "Come through" : "See you tomorrow"}
             </p>
             <p className="mt-2 text-sm text-white/60">
@@ -149,7 +149,7 @@ export function TodayBoard() {
                 Movie Zone
               </span>
             </div>
-            <p className="mt-4 font-serif text-2xl leading-snug">
+            <p className="mt-4 font-serif text-2xl sm:text-3xl leading-snug">
               {nextFilm?.title}
             </p>
             <p className="mt-2 text-sm text-white/60">
@@ -178,7 +178,7 @@ export function TodayBoard() {
                 Community
               </span>
             </div>
-            <p className="mt-4 font-serif text-2xl leading-snug">
+            <p className="mt-4 font-serif text-2xl sm:text-3xl leading-snug">
               {nextEvent?.title}
             </p>
             <p className="mt-2 text-sm text-white/60">
@@ -207,7 +207,7 @@ export function TodayBoard() {
                 Getting here
               </span>
             </div>
-            <p className="mt-4 font-serif text-2xl leading-snug">
+            <p className="mt-4 font-serif text-2xl sm:text-3xl leading-snug">
               Free secure parking
             </p>
             <p className="mt-2 text-sm text-white/70">

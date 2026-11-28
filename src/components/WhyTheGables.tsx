@@ -37,7 +37,7 @@ export function WhyTheGables() {
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section ref={ref} className="py-20 sm:py-28 bg-white overflow-hidden relative">
+    <section ref={ref} className="py-24 sm:py-32 bg-white overflow-hidden relative">
       <div
         aria-hidden
         className="pointer-events-none absolute -left-24 top-1/3 h-64 w-64 rounded-full bg-terracotta/10 blur-3xl"
@@ -61,7 +61,7 @@ export function WhyTheGables() {
             initial={{ opacity: 0, y: 32 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.06, ease: easeOut }}
-            className="mt-2 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-forest text-balance"
+            className="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl font-medium text-forest text-balance leading-[1.05]"
           >
             The place people{" "}
             <span className="relative inline-block">
