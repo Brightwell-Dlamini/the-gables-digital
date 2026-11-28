@@ -24,7 +24,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="relative min-h-[88svh] sm:min-h-[94vh] flex items-center sm:items-end overflow-hidden">
+      <section className="relative min-h-[90svh] sm:min-h-[96vh] flex items-center sm:items-end overflow-hidden">
         <div className="absolute inset-0">
           <motion.div
             className="absolute inset-0"
@@ -80,7 +80,7 @@ export default function HomePage() {
           transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:pb-20 sm:pt-36">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:pb-24 sm:pt-40">
           <motion.div
             initial={{ opacity: 0, y: 12, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
